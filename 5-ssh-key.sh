@@ -43,6 +43,64 @@ _ssh_key_is_already_installed_msg() {
 }
 
 
+# There are four ways connecting to GitLab could fail
+#  0. No internet|host key verification failed = fix the problem and try again
+#  1. No local SSH keys = create and upload new key to GitLab
+#  2. Local SSH key is not on GitLab = don't re-create, but upload to GitLab
+#  3. Local key exists on GitLab = mark this lesson complete and move on
+#
+# This function is adapted from ssh_tutr_assert_ssh_connection_is_okay()
+# from .lib/ssh-connection-test.sh.  It differs by allowing the lesson
+# to proceed when an SSH key does not exist.  In other lessons the user
+# should re-create their SSH key by themselves or by re-doing this lesson.
+_tutr_check_ssh_connection() {
+	[[ -z $DEBUG ]] && clear || set -x
+
+	ssh-keygen -F $_GL >/dev/null 2>&1 || _tutr_info _ssh_add_hostkey_msg
+
+	local msg stat ret
+	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GL 2>&1)
+	stat=$?
+	ret=0
+
+	case $stat in
+		0)
+			# User logged in with SSH key; this lesson can be skipped
+			:
+			;;
+		255)
+			if   [[ $msg == *"Permission denied"* ]]; then
+				# This message means the internet is working and
+				# the SSH key is not on GitLab.
+				ret=1
+			elif [[ $msg == *"Could not resolve hostname"* ]]; then
+				# DNS is down
+				_tutr_die _no_internet_msg "$msg"
+			elif [[ $msg == *"Connection timed out"* ]]; then
+				# Network is down
+				_tutr_die _no_internet_msg "$msg"
+			elif [[ $msg == *"Host key verification failed"* ]]; then
+				# Host key changed/spoofed
+				_tutr_die _host_key_verification_fail_msg "'$msg'"
+			elif [[ $msg == *"Too many authentication failures"* ]]; then
+				# User was prompted for password
+				_tutr_die _too_many_auth_failures_msg "'$msg'"
+			else
+				_tutr_die _other_problem_msg "'$msg'"
+			fi
+			;;
+		*)
+			if _tutr_ssh_key_is_present; then
+				_tutr_warn _ssh_key_exists_msg $REPLY
+			else
+				_tutr_die _ssh_key_is_missing_msg
+			fi
+			;;
+	esac
+	[[ -n $DEBUG ]] && set +x
+	return $ret
+}
+
 setup() {
 	source screen-size.sh 80 30
 
@@ -50,7 +108,7 @@ setup() {
 	_tutr_assert_program_exists ssh-keygen
 	_tutr_assert_program_exists ssh
 
-	if _tutr_assert_ssh_connection_is_okay; then
+	if _tutr_check_ssh_connection; then
 		_tutr_info _ssh_key_is_already_installed_msg
 		_record_completion ${_TUTR#./} lesson_complete
 		cleanup $_COMPLETE

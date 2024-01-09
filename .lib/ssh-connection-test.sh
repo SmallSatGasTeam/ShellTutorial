@@ -47,7 +47,7 @@ _ssh_add_hostkey_msg() {
 
 	Upon your first connection to $(ylw "DuckieCorp's") GitLab server from this
 	device, you must verify that you're linking to the $(bld real) server and
-    not an imposter.
+	not an imposter.
 
 	Look for the fingerprint in a line of text that begins as one of these:
 	  $(bld ED25519 key fingerprint is  ${_GL_HOSTKEY_ED25519:0:7}...)
@@ -142,6 +142,26 @@ _too_many_auth_failures_msg() {
 }
 
 
+_host_key_verification_fail_msg() {
+	cat <<-MSG
+	                ${_R}Do not proceed with the connection!${_Z}
+
+	${_Y} 8 8 8 8               ,ooo.   ${_Z} Your vigilance in not accepting an
+	${_Y} 8a8 8a8              oP   ?b  ${_Z} unverified host key is appreciated
+	${_Y}d888a888zzzzzzzzzzzzzz8     8b ${_Z} and necessary for maintaining system
+	${_Y} '""^""'              ?o___oP' ${_Z} integrity.
+
+	   It is a critical security concern if the provided SSH host key
+	                  does not match the expected one.
+
+	      Please report this issue to $_EMAIL immediately.
+
+	${_W}Original error message:
+	${_Z}$@
+	MSG
+}
+
+
 _other_problem_msg() {
 	cat <<-MSG
 
@@ -185,21 +205,21 @@ _other_problem_msg() {
 #   This command removes that rule
 #     $ sudo iptables -D OUTPUT 1
 _tutr_assert_ssh_connection_is_okay() {
-	_tutr_info _ssh_add_hostkey_msg
+	[[ -z $DEBUG ]] && clear || set -x
+
+	ssh-keygen -F $_GL 2>&1 || _tutr_info _ssh_add_hostkey_msg
 
 	local msg stat
 	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GL 2>&1)
 	stat=$?
 
-	[[ -z $DEBUG ]] && clear || set -x
-
 	case $stat in
 		0)
-            if [[ $msg == "Welcome to GitLab"* ]]; then
-                export _GL_USERNAME=${msg:20:-1}
-            else
-                export _GL_USERNAME=
-            fi
+			if [[ $msg == "Welcome to GitLab"* ]]; then
+				export _GL_USERNAME=${msg:20:-1}
+			else
+				export _GL_USERNAME=
+			fi
 			;;
 		255)
 			if   [[ $msg == *"Permission denied"* ]]; then
@@ -208,8 +228,6 @@ _tutr_assert_ssh_connection_is_okay() {
 				# See if there is a local SSH key
 				if _tutr_ssh_key_is_present; then
 					_tutr_warn _ssh_key_exists_msg $REPLY
-                else
-                    _tutr_die _ssh_key_is_missing_msg
 				fi
 			elif [[ $msg == *"Could not resolve hostname"* ]]; then
 				# DNS is down
@@ -219,22 +237,24 @@ _tutr_assert_ssh_connection_is_okay() {
 				_tutr_die _no_internet_msg "$msg"
 			elif [[ $msg == *"Host key verification failed"* ]]; then
 				# Host key changed/spoofed
-				_tutr_die _no_internet_msg "'$msg'"
+				_tutr_die _host_key_verification_fail_msg "'$msg'"
 			elif [[ $msg == *"Too many authentication failures"* ]]; then
 				# User was prompted for password
 				_tutr_die _too_many_auth_failures_msg "'$msg'"
-            else
+			else
 				_tutr_die _other_problem_msg "'$msg'"
 			fi
 			;;
 		*)
-            if _tutr_ssh_key_is_present; then
-                _tutr_warn _ssh_key_exists_msg $REPLY
-            else
-                _tutr_die _ssh_key_is_missing_msg
-            fi
+			if _tutr_ssh_key_is_present; then
+				_tutr_warn _ssh_key_exists_msg $REPLY
+			else
+				_tutr_die _ssh_key_is_missing_msg
+			fi
 			;;
 	esac
-    [[ -n $DEBUG ]] && set +x
-    return 0
+	[[ -n $DEBUG ]] && set +x
+	return 0
 }
+
+# vim: set filetype=sh noexpandtab tabstop=4 shiftwidth=4 textwidth=76 colorcolumn=76:
