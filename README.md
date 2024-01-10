@@ -69,12 +69,12 @@ Interactive Unix Shell Tutorials
 
 ## Reporting Problems
 
-When you encounter a problem with a lesson, please file a bug report so I can fix it.
+When you encounter a problem with a lesson, please file a bug-report so I can fix it.
 
 *   First, check the list of [known bugs](./BUGS.md) to make sure your bug hasn't already been reported.
 *   Run one of the following commands to produce a listing of technical info:
     *   From within the lesson run `tutor bug`.
-    *   If the problem kicked you out of the lesson, run `./bug_report.sh` instead.
+    *   If the problem kicked you out of the lesson, run `./bug-report.sh` instead.
 *   Scroll up in your terminal before the problem began and, using your mouse, select text from that point all the way to the end of the command's output.
 *   Copy and paste that text into an email message.  Include these details:
     -   Which lesson you are/were running
