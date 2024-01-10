@@ -71,6 +71,11 @@ _repo_warning() {
 	:
 }
 
+_tutr_lesson_statelog_global() {
+	_TUTR_STATE_CODE= # We don't have a meaningful and general state code yet...
+	_TUTR_STATE_TEXT=$(_tutr_git_default_text_statelog $_REPO_PATH)
+}
+
 
 
 setup() {
