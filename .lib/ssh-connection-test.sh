@@ -207,7 +207,8 @@ _other_problem_msg() {
 _tutr_assert_ssh_connection_is_okay() {
 	[[ -z $DEBUG ]] && clear || set -x
 
-	ssh-keygen -F $_GL 2>&1 || _tutr_info _ssh_add_hostkey_msg
+	echo Testing connection to gitlab.cs.usu.edu...
+	ssh-keygen -F $_GL >/dev/null 2>&1 || _tutr_info _ssh_add_hostkey_msg
 
 	local msg stat
 	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GL 2>&1)
