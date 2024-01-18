@@ -15,6 +15,16 @@ _REPONAME=cs1440-assn$_A
 _REPONAME_L=cs1440-falor-erik-assn$_A
 
 source ansi-terminal-ctl.sh
+# This function is named `_Git` to avoid clashing with Zsh's `_git`
+_Git() { (( $# == 0 )) && echo $(blu Git) || echo $(blu $*); }
+_local() { (( $# == 0 )) && echo $(ylw local) || echo $(ylw $*); }
+_remote() { (( $# == 0 )) && echo $(cyn remote) || echo $(cyn $*); }
+_GitLab() { (( $# == 0 )) && echo $(cyn GitLab) || echo $(cyn $*); }
+_origin() { (( $# == 0 )) && echo $(red origin) || echo $(red $*); }
+_md() { (( $# == 0 )) && echo $(blu Markdown) || echo $(blu $*) ; }
+_code() { (( $# == 0 )) && echo $(cyn code) || echo $(cyn "$*"); }
+_py() { (( $# == 0 )) && echo $(grn Python) || echo $(grn $*) ; }
+_duckie() { (( $# == 0 )) && echo $(ylw DuckieCorp) || echo $(ylw $*) ; }
 source progress.sh
 if [[ -n $_TUTR ]]; then
 	source editors+viewers.sh
@@ -38,16 +48,6 @@ if [[ -n $_TUTR ]]; then
 		fi
 	}
 
-	# This function is named `_Git` to avoid clashing with Zsh's `_git`
-	_Git() { (( $# == 0 )) && echo $(blu Git) || echo $(blu $*); }
-	_local() { (( $# == 0 )) && echo $(ylw local) || echo $(ylw $*); }
-	_remote() { (( $# == 0 )) && echo $(cyn remote) || echo $(cyn $*); }
-	_GitLab() { (( $# == 0 )) && echo $(cyn GitLab) || echo $(cyn $*); }
-	_origin() { (( $# == 0 )) && echo $(red origin) || echo $(red $*); }
-	_md() { (( $# == 0 )) && echo $(blu Markdown) || echo $(blu $*) ; }
-	_code() { (( $# == 0 )) && echo $(cyn code) || echo $(cyn "$*"); }
-	_py() { (( $# == 0 )) && echo $(grn Python) || echo $(grn $*) ; }
-	_duckie() { (( $# == 0 )) && echo $(ylw DuckieCorp) || echo $(ylw $*) ; }
 fi
 
 
@@ -564,6 +564,8 @@ edit_readme_test() {
 	_BLOCK=94
 	_CHANGE=93
 	_README_MISSING=92
+	_UNBALANCED_BACKTICKS=91
+	_UNBALANCED_TILDES=90
 
 	[[ "$PWD" != "$_REPO" ]] && return $WRONG_PWD
 	[[ ! -f "$_REPO/README.md" ]] && _tutr_file_clean README.md && return $_README_MISSING
@@ -571,26 +573,29 @@ edit_readme_test() {
 
 	# what about tabs?
 	command grep -qE '^#[ 	]..*$' README.md
-	local _NEED_H1=$?
+	local need_h1=$?
 	command grep -qE '^##[ 	]..*$' README.md
-	local _NEED_H2=$?
+	local need_h2=$?
 	command grep -qE '\*\*.*\*\*' README.md
-	local _NEED_BOLD=$?
+	local need_bold=$?
 	command grep -qE '^\*[  ]..*$|^\+[  ]..*$|^-[    ]..*$' README.md
-	local _NEED_BLIST=$?
+	local need_blist=$?
 	command grep -qE '`..*`' README.md
-	local _NEED_INLINE=$?
-	local fences=$(grep -cE '^```|^~~~' README.md)
-	(( fences >= 2 && fences % 2 == 0 ))
-	local _NEED_BLOCK=$?
+	local need_inline=$?
 
-	if   (( _NEED_H1 )); then return $_H1
-	elif (( _NEED_H2 )); then return $_H2
-	elif (( _NEED_BOLD )); then return $_BOLD
-	elif (( _NEED_BLIST )); then return $_BLIST
-	elif (( _NEED_INLINE )); then return $_INLINE
-	elif (( _NEED_BLOCK )); then return $_BLOCK
-	elif (( ( _NEED_H1 & _NEED_H2 & _NEED_BOLD & _NEED_BLIST & _NEED_INLINE & _NEED_BLOCK ) == 0)); then return 0
+	#count backtick fences separately from tilde fences
+	local backtick_fences=$(grep -cE '^```' README.md)
+	local tilde_fences=$(grep -cE '^~~~' README.md)
+
+	if   (( need_h1 )); then return $_H1
+	elif (( need_h2 )); then return $_H2
+	elif (( need_bold )); then return $_BOLD
+	elif (( need_blist )); then return $_BLIST
+	elif (( need_inline )); then return $_INLINE
+	elif (( backtick_fences == 0 && tilde_fences == 0 )); then return $_BLOCK
+	elif (( backtick_fences % 2 != 0 )); then return $_UNBALANCED_BACKTICKS
+	elif (( tilde_fences % 2 != 0 )); then return $_UNBALANCED_TILDES
+	elif (( ( need_h1 & need_h2 & need_bold & need_blist & need_inline ) == 0)); then return 0
 	elif _tutr_noop; then return $PASS
 	else _tutr_generic_test -c nano -a README.md -d "$_REPO"
 	fi
@@ -673,6 +678,32 @@ edit_readme_hint() {
 			If $(_GitLab) knows about that language, it will apply syntax highlighting
 			to your code block.  If $(_GitLab) doesn't recognize that programming
 			language, it will just show up as an ordinary pre-formatted block.
+			:
+			;;
+
+		$_UNBALANCED_BACKTICKS)
+			cat <<-:
+			There are an odd number of backtick fences $(_code '```') in your file.
+
+			This confuses Markdown because it appears like you have started a pre-
+			formatted block but not finished it.  It's the same problem you get in
+			Python when you leave parentheses or quote marks unbalanced.
+
+			Go back into the file and make sure that all of your backtick fences are
+			three characters long and come in pairs.
+			:
+			;;
+
+		$_UNBALANCED_TILDES)
+			cat <<-:
+			There are an odd number of tilde fences $(_code '~~~') in your file.
+
+			This confuses Markdown because it appears like you have started a pre-
+			formatted block but not finished it.  It's the same problem you get in
+			Python when you leave parentheses or quote marks unbalanced.
+
+			Go back into the file and make sure that all of your tilde fences are
+			three characters long and come in pairs.
 			:
 			;;
 
