@@ -56,9 +56,9 @@ Interactive Unix Shell Tutorials
 
 ## Command Logging
 
-One additional feature of this tool is the creation of **session logs.** The shell tutor will automatically log your activity within the Shell Tutor, including (but not limited to) the commands you run, the time of each command run, the state of the Shell Tutor, and additional Shell Tutor environment information. **These logs will not effect your grade in any way. These logs will never be used to judge an individual's performance within the Shell Tutor.** These logs are used for the purpose of improving this tool by better understanding student behaviors while learning the shell and Git. It also helps us identify any sections of the shell tutor that students may struggle with. **This raw data will never be shared beyond your instructor and the developers of the Shell Tutor, without your explicit consent.** Upon completion of the Shell Tutor, the Shell Tutor will assist you in sharing these logs with your instructor.
+The Shell Tutor makes **session logs** of your activity during lessons.  Session logs contain commands you ran, the Shell Tutor's state, and other details about your environment. *Session logs are not used for grading*.  They're used to improve the tutor, identify tough lessons, and guide enhancements.  The logs are confidential, and are seen only by your instructor and the developers unless you consent to share further.  At the end of the final lesson, the tutor will help you submit these logs to your instructor.
 
-Any bugs, questions, or concerns with the command logging should be emailed to Jaxton Winder (`jaxton DOT winder AT usu DOT edu`) and Erik Falor (`erik DOT falor AT usu DOT edu`).
+If you have any questions about command logging, please contact Jaxton Winder (email: `jaxton DOT winder AT usu DOT edu`) or Erik Falor (email: `erik DOT falor AT usu DOT edu`).
 
 
 ## Hints
@@ -68,7 +68,7 @@ Any bugs, questions, or concerns with the command logging should be emailed to J
 *   You can leave the tutorial early by exiting the shell.  There are many ways to do this:
     *   The `exit` command
     *   The `tutor quit` command
-    *   Type the End-Of-File character (EOF) `Ctrl-D`
+    *   Type the End-Of-Transmission character (EOT) `Ctrl-D`
 *   The typical duration of each lesson is displayed at startup.  If you are stuck longer than this seek help from the TAs, the CS Coaching Center, or your instructor.
 
 
