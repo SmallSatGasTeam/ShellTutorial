@@ -54,6 +54,12 @@ Interactive Unix Shell Tutorials
 *   Compatible with Bash versions >= 4.2 and Zsh versions >=5.2.
 
 
+## Command Logging
+
+One additional feature of this tool is the creation of **session logs.** The shell tutor will automatically log your activity within the Shell Tutor, including (but not limited to) the commands you run, the time of each command run, the state of the Shell Tutor, and additional Shell Tutor environment information. **These logs will not effect your grade in any way. These logs will never be used to judge an individual's performance within the Shell Tutor.** These logs are used for the purpose of improving this tool by better understanding student behaviors while learning the shell and Git. It also helps us identify any sections of the shell tutor that students may struggle with. **This raw data will never be shared beyond your instructor and the developers of the Shell Tutor, without your explicit consent.** Upon completion of the Shell Tutor, the Shell Tutor will assist you in sharing these logs with your instructor.
+
+Any bugs, questions, or concerns with the command logging should be emailed to Jaxton Winder (`jaxton DOT winder AT usu DOT edu`) and Erik Falor (`erik DOT falor AT usu DOT edu`).
+
 
 ## Hints
 
