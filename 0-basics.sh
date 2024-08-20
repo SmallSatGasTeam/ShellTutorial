@@ -16,7 +16,7 @@ if [[ -n $_TUTR ]]; then
 	source platform.sh
 	_Google() { echo ${_B}G${_R}o${_Y}o${_B}g${_G}l${_R}e${_z}; }
 	_code() { (( $# == 0 )) && echo $(cyn code) || echo $(cyn "$*"); }
-	_err() { (( $# == 0 )) && echo $(red _err) || echo $(red "$*"); }
+	_err() { (( $# == 0 )) && echo $(red error) || echo $(red "$*"); }
 	_py() { (( $# == 0 )) && echo $(grn Python) || echo $(grn $*) ; }
 fi
 
@@ -78,8 +78,13 @@ _make_files() {
 	TEXT
 
 	cat <<-TEXT > "$_BASE/top.secret"
-	You should not be able to read this message because you lack permission
-	to this file.  If you can see this, please report it as a bug.
+	You should not be able to read this message because you lack read
+	permission on this file.
+
+	If you are reading this message, please report it as a bug.
+
+	(Unless you used a command like 'sudo';
+	in that case you're missing the point of this exercise.)
 
 	TEXT
 
@@ -1225,11 +1230,36 @@ cat_permission_denied_prologue() {
 }
 
 cat_permission_denied_test() {
-	cat_GENERIC_test top.secret
+	_USED_SUDO=99
+	case ${_CMD[0]} in
+		sudo|doas|pkexec|runas|run0|systemd-run)
+			return $_USED_SUDO ;;
+		*)
+			cat_GENERIC_test top.secret ;;
+	esac
 }
 
 cat_permission_denied_hint() {
-	cat_GENERIC_hint $1 top.secret
+	case $1 in
+		$_USED_SUDO)
+			if [[ $_RES == 0 ]]; then
+				local verb=
+			else
+				local verb=" try to"
+			fi
+			cat <<-:
+			Really?  You used $(cmd ${_CMD[0]}) to$verb see what's in the file?
+			The point of this step is to see an $(_err) message.
+
+			My disappointment is immeasurable and my day is ruined.
+
+			Go back and do it again, and $(bld fail) this time.
+			:
+			;;
+		*)
+			cat_GENERIC_hint $1 top.secret
+			;;
+	esac
 }
 
 cat_permission_denied_epilogue() {
