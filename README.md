@@ -1,13 +1,13 @@
-# Shell Tutor
-
-Interactive Unix Shell Tutorials
+# Shell Tutor - Interactive Unix Shell Tutorials
 
 
 ## Quick Start
 
 *In these code examples a dollar sign `$` represents the shell's prompt.  It is shown to distinguish commands that you type from the output they produce. Do not type the `$` when you run these commands yourself.*
 
-0.  Install Git on your computer *(Mac and Windows users: detailed instructions are below)*.
+0.  Install Git on your computer.
+    *   Instructions for [macOS users](#instructions-for-macos-users)
+    *   Instructions for [Windows users](#instructions-for-windows-users)
 1.  Clone this repository.  Your output may be slightly different than this:
     ```
     $ git clone https://gitlab.cs.usu.edu/duckiecorp/shell-tutor
@@ -107,7 +107,7 @@ When you encounter a problem with a lesson, please file a bug-report so I can fi
     *   The contents of this log do not affect your grade; **this is a pass/fail assignment**.
 
 
-## Special Instructions For **macOS** Users
+## Instructions For **macOS** Users
 
 ### How to open the Terminal app
 
@@ -154,25 +154,24 @@ Keyboard shortcuts are introduced in the lesson **4-projects.sh** which use both
 You do not need to restart the Terminal app for this setting to take effect.
 
 
-## Special Installation Instructions For **Git for Windows** Users
+## Instructions For **Windows** Users
 
-**Not to be confused with _Windows Subsystem For Linux (WSL)_.  CS 1440 students should use Git for Windows instead of WSL.**
-
+*Note for CS 1440 students: you should use _Git for Windows_ instead of _Windows Subsystem For Linux (WSL)_.*
 
 ### Installing Git for Windows
 
-*CS 1440 students: there is a video on Canvas that walks you through this process*
+*Note for CS 1440 students: there is a video on Canvas that walks you through this process*
 
 0.  Visit [https://gitforwindows.org/](https://gitforwindows.org/)
 1.  Click the **Download** button
 2.  Locate and run the installer
 3.  You will be presented with several options.  By and large you should keep the defaults, but keep a close eye out for these ones:
-    *   *Choosing the default editor used by Git*
-        -   Select the Nano editor, which is at the very top of the drop-down list (scroll up to see it)
-    *   *Choose a credential helper*
+    *   **Choosing the default editor used by Git**
+        -   Select the *Nano* editor, which is at the very top of the drop-down list (scroll up to see it)
+    *   **Choose a credential helper**
         -   Select `None`
-    *   *Configuring experimental options*
-        -   Enable experimental support for pseudo consoles
+    *   **Configuring experimental options**
+        -   Enable *Experimental support for pseudo consoles*
 4.  If you missed one of these options, re-run the installer to try again
 
 
