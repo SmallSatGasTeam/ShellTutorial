@@ -7,12 +7,12 @@ _DURATION=40
 # Put tutorial library files into $PATH
 PATH=$PWD/.lib:$PATH
 
-# The assignment number of the next assignment
+# The number of the next project
 _A=0
 
 # Name of the starter code repo
-_REPONAME=cs1440-assn$_A
-_REPONAME_L=cs1440-falor-erik-assn$_A
+_REPONAME=cs1440-proj$_A
+_REPONAME_L=cs1440-falor-erik-proj$_A
 
 source ansi-terminal-ctl.sh
 # This function is named `_Git` to avoid clashing with Zsh's `_git`
@@ -184,7 +184,7 @@ prologue() {
 }
 
 
-# Rename the starter code repo from cs1440-falor-erik-assn1 to cs1440-assn1
+# Rename the starter code repo from cs1440-falor-erik-proj1 to cs1440-proj1
 rename_repo_rw() {
 	command mv $_REPONAME $_REPONAME_L
 	cd "$_BASE"
@@ -884,7 +884,7 @@ push_readme_epilogue() {
 	pushed your code to $(bld another Git server) (students have done this before).
 	If I can't find your code on my sever, $(bld "I can't grade it").
 
-	Assignments are due before $(bld midnight) as judged by the clock on $(bld this)
+	Projects are due before $(bld midnight) as judged by the clock on $(bld this)
 	$(_GitLab) server.  It doesn't matter if it is running faster than the clock
 	on your laptop, your microwave, your phone, or the official atomic clock
 	at the Naval Observatory.  $(bld This clock) is the $(bld sole arbiter) of lateness at
@@ -927,7 +927,7 @@ git_log0_prologue() {
 	  the same on $(_GitLab) as they do here on $(_local your computer).
 
 	* Check that the first 7-8 characters of the top commit ID in the log
-	match the latest commit on $(_GitLab).
+	  match the latest commit on $(_GitLab).
 
 	Run $(cmd git log) and make sure both repos are the same.
 	:
@@ -1939,14 +1939,14 @@ mv_cert_prologue() {
 		  - An archive called $(path ${_ARCHIVE[0]})
 
 		To receive credit for the tutorial, you must $(bld move) both files into
-		the $(path doc/) directory of the Assignment #0 repository
+		the $(path doc/) directory of the Project #0 repository
 		(i.e. $(path $REPLY)).
 		:
 	else
 		cat <<-:
 		To receive credit for the tutorial, you must $(bld move) the certificate,
 		named $(path certificate.txt), into the $(path doc/) directory of the
-		Assignment #0 repository (i.e. $(path $REPLY)).
+		Project #0 repository (i.e. $(path $REPLY)).
 		:
 	fi
 }
@@ -2011,7 +2011,7 @@ mv_cert_hint() {
 
 		$_LOGS_NOT_MOVED)
 			cat <<-:
-			Move that archive over to the assignment repository like this:
+			Move that archive over to the project repository like this:
 			  $(cmd mv ${_ARCHIVE[0]} ../$_REPONAME/doc).
 			:
 			;;
@@ -2023,34 +2023,34 @@ mv_cert_hint() {
 }
 
 
-cd_to_assn_ff() {
+cd_to_proj_ff() {
 	cd "$_REPO/doc"
 }
 
-cd_to_assn_rw() {
+cd_to_proj_rw() {
 	cd "$_BASE"
 }
 
-cd_to_assn_prologue() {
+cd_to_proj_prologue() {
 	_tutr_shortest_path "$_REPO/doc" "$PWD"
 	if [[ -n "$REPLY" ]]; then
 		cat <<-:
-		Now, return one last time to the Assignment #0 repository by $(cmd cd)'ing to
+		Now, return one last time to the Project #0 repository by $(cmd cd)'ing to
 		$(path $REPLY)
 		:
 	else
 		cat <<-:
-		Now, return to the Assignment #0 repository one last time.
+		Now, return to the Project #0 repository one last time.
 		:
 	fi
 }
 
-cd_to_assn_test() {
+cd_to_proj_test() {
 	[[ "$PWD" != "$_REPO/doc" ]] && return $WRONG_PWD
 	return 0
 }
 
-cd_to_assn_hint() {
+cd_to_proj_hint() {
 	_tutr_shortest_path "$_REPO/doc" "$PWD"
 	if [[ -n "$REPLY" ]]; then
 		echo Try running $(cmd cd $REPLY)
@@ -2276,7 +2276,7 @@ _STEPS=(
 	cd_to_tutorial
 	make_certificate
 	mv_cert
-	cd_to_assn
+	cd_to_proj
 	push_certificate
 	)
 

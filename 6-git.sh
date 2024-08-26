@@ -7,11 +7,11 @@ _DURATION=25
 # Put tutorial library files into $PATH
 PATH=$PWD/.lib:$PATH
 
-# The assignment number of the next assignment
+# The number of the next project
 _A=0
 
 # Name of the starter code repo
-_REPONAME=cs1440-falor-erik-assn$_A
+_REPONAME=cs1440-falor-erik-proj$_A
 
 # This function is named `_Git` to avoid clashing with Zsh's `_git`
 _Git() { (( $# == 0 )) && echo $(blu Git) || echo $(blu $*); }
@@ -56,7 +56,7 @@ _repo_warning() {
 	parent directory.  Because this lesson involves cloning this repository,
 	it should not already exist.
 
-	If you have not yet submitted Assignment #$_A you may not wish to delete
+	If you have not yet submitted Project #$_A you may not wish to delete
 	your work.  In that case, it's probably best to not re-run this lesson.
 
 	If you want to start over, use $(cmd rm -rf) to delete $(path $_REPONAME)
@@ -602,7 +602,7 @@ git_clone_pre() {
 
 git_clone_prologue() {
 	cat <<-:
-	Now you will $(bld clone) the starter code for Assignment #1 in CS 1440.
+	Now you will $(bld clone) the starter code for Project #0 in CS 1440.
 	$(bld Cloning) a repo makes a new directory on your computer into which the
 	repo's information is downloaded.
 
@@ -626,7 +626,7 @@ git_clone_prologue() {
 }
 
 git_clone_test() {
-	_tutr_generic_test -c git -a clone -a "^https://gitlab.cs.usu.edu/duckiecorp/cs1440-falor-erik-assn$_A$|^git@gitlab.cs.usu.edu:duckiecorp/cs1440-falor-erik-assn$_A$" -d "$_PARENT"
+	_tutr_generic_test -c git -a clone -a "^https://gitlab.cs.usu.edu/duckiecorp/cs1440-falor-erik-proj$_A$|^git@gitlab.cs.usu.edu:duckiecorp/cs1440-falor-erik-proj$_A$" -d "$_PARENT"
 }
 
 git_clone_hint() {
@@ -1400,9 +1400,10 @@ git_remote_v_prologue() {
 
 	cat <<-:
 
-	In this class assignments are turned in with $(_Git).  Besides checking
-	scores and reading messages from your grader, there is $(bld nothing) for you
-	to do with assignments on Canvas.
+	In this class, projects are submitted through $(_Git), so there isn't much
+	to do with them on Canvas. Aside from reading grader feedback, checking
+	your scores, and completing the post-project reflection, there's $(bld nothing)
+	else you need to do with projects on Canvas.
 
 	Instead, you will create a $(_remote remote repository) under your own account on
 	my GitLab server and turn in your work there.  Your clone will remain
@@ -1410,8 +1411,8 @@ git_remote_v_prologue() {
 	No mess, no fuss.  And (this is the most important bit) $(bld no frogs will)
 	$(bld be hurt.)
 
-	You will do this $(bld once) for every assignment.  It is accomplished
-	entirely on the command line.
+	You will do this $(bld once) for every project.  It is accomplished entirely
+	on the command line.
 
 	:
 	_tutr_pressenter
@@ -1577,9 +1578,9 @@ git_remote_rename_epilogue() {
 	The reason why I asked you to rename $(_origin) instead of $(bld erasing) it
 	is so that your repository will always remember where it came from.
 
-	There is a chance that somebody will find a bug in an assignment, and I
-	will need to issue an update.  If your repository remembers that it came
-	from $(_origin old-origin), it will be very easy for you to fetch the fixed code.
+	There is a chance that somebody will find a bug in an project, and I will
+	need to issue an update.  If your repository remembers that it came from
+	$(_origin old-origin), it will be very easy for you to fetch the fixed code.
 
 	I hope this never happens.  But when it does, I will give you complete
 	instructions for fetching the fix at that time.
@@ -1589,7 +1590,7 @@ git_remote_rename_epilogue() {
 	if [[ $_REMOVED_ORIGIN = yep ]]; then
 		cat <<-:
 		Since you removed my URL from your $(_local) repository's configuration,
-		you would be on your own if I made a change to the assignment's starter
+		you would be on your own if I made a change to the project's starter
 		code or documentation.
 
 		:
@@ -1604,7 +1605,7 @@ git_remote_add_rw() {
 }
 
 git_remote_add_ff() {
-	git remote add origin git@gitlab.cs.usu.edu:chad/cs1440-chadwick-chad-assn$_A
+	git remote add origin git@gitlab.cs.usu.edu:chad/cs1440-chadwick-chad-proj$_A
 }
 
 git_remote_add_prologue() {
@@ -1654,7 +1655,7 @@ git_remote_add_prologue() {
 	  * Punctuation, such as slashes $(ylw /) and colons $(ylw :)
 	  * $(ylw git@gitlab.cs.usu.edu)
 	  * $(ylw cs1440)
-	  * $(ylw assn$_A)
+	  * $(ylw proj$_A)
 
 	When students get those wrong, we cannot locate their submission on the
 	GitLab server (there are $(bld thousands) of them).
@@ -1697,10 +1698,10 @@ git_remote_add_test() {
 	elif [[ $URL != *gitlab.cs.usu.edu* ]]; then return 93
 	elif [[ $URL =  *:duckiecorp/* ]]; then return 98
 	elif [[ $URL != */cs1440-* ]]; then return 92
-	elif [[ $URL != *-assn$_A && $URL != *-assn$_A.git ]]; then return 96
+	elif [[ $URL != *-proj$_A && $URL != *-proj$_A.git ]]; then return 96
 	elif [[ $URL =  */$_REPONAME* ]]; then return 97
-	elif [[ $URL =  git@gitlab.cs.usu.edu:*/cs1440-*-assn$_A ||
-		    $URL =  git@gitlab.cs.usu.edu:*/cs1440-*-assn$_A.git ]]; then return 0
+	elif [[ $URL =  git@gitlab.cs.usu.edu:*/cs1440-*-proj$_A ||
+		    $URL =  git@gitlab.cs.usu.edu:*/cs1440-*-proj$_A.git ]]; then return 0
 	else _tutr_generic_test -c git -n -d "$_REPO"
 	fi
 }
@@ -1731,7 +1732,7 @@ git_remote_add_hint() {
 			The name you gave your repo is wrong - it still contains MY name.
 
 			Your repository's name should include YOUR name and look like
-			  $(bld cs1440-LASTNAME-FIRSTNAME-assn$_A)
+			  $(bld cs1440-LASTNAME-FIRSTNAME-proj$_A)
 
 			Use $(cmd git remote remove origin) to erase this and try again.
 			:
@@ -1739,8 +1740,8 @@ git_remote_add_hint() {
 
 		96)
 			cat <<-:
-			This repository's name must end in $(bld "-assn$_A"), signifying that it
-			is for Assignment #$_A.
+			This repository's name must end in $(bld "-proj$_A"), signifying that it
+			is for Project #$_A.
 
 			Use $(cmd git remote remove origin) to erase this and try again.
 			:
