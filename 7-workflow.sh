@@ -112,7 +112,7 @@ _tutr_lesson_statelog_global() {
 
 
 setup() {
-	source screen-size.sh 80 35
+	source screen-size.sh 82 35
 
 	source assert-program-exists.sh
 	_tutr_assert_program_exists ssh
@@ -340,10 +340,10 @@ ls0_epilogue() {
 
 	You will notice that the same files and directories that $(cmd ls) shows here
 	in the terminal are also on $(_GitLab) (with the small exception of
-	$(path .gitignore), which is not hidden on the website).  At this moment
-	both the $(_local) and $(_remote) repositories are identical to each
-	other.  As you work in this repository on your computer, it will become
-	different from the remote repository on $(_GitLab).
+	$(path .gitignore) and $(path .gitattributes,) which are not hidden on the website).
+	At this moment both the $(_local) and $(_remote) repositories are identical to
+	each other.  As you work in this repository on your computer, it will
+	become different from the remote repository on $(_GitLab).
 
 	In this lesson you will make several commits on this computer and push
 	them up to $(_GitLab).
@@ -385,37 +385,37 @@ view_GENERIC_test() {
 }
 
 
-# look at instructions/README.md both in browser and terminal
-view_instructions_rw() {
+# look at instructions/Project_Requirements.md both in browser and terminal
+view_proj_reqs_rw() {
 	cd "$_REPO"
 }
 
-view_instructions_ff() {
+view_proj_reqs_ff() {
 	cd "$_REPO/instructions"
 }
 
-view_instructions_prologue() {
+view_proj_reqs_prologue() {
 	cat <<-:
 	Take a closer look at the contents of the $(path instructions) directory.
-	Specifically, I want you to look at $(_md instructions/README.md)
+	Specifically, I want you to look at $(_md instructions/Project_Requirements.md)
 	both with $(cmd less) in the terminal and in your browser.
 	:
 }
 
-view_instructions_test() {
-	view_GENERIC_test "$_REPO/instructions/README.md"
+view_proj_reqs_test() {
+	view_GENERIC_test "$_REPO/instructions/Project_Requirements.md"
 }
 
-view_instructions_hint() {
+view_proj_reqs_hint() {
 	_tutr_generic_hint $1 less "$_REPO/instructions"
 
 	cat <<-:
 
-	Look at the file $(_md README.md) in the $(path instructions) directory.
+	Look at the file $(_md Project_Requirements.md) in the $(path instructions) directory.
 	:
 }
 
-view_instructions_epilogue() {
+view_proj_reqs_epilogue() {
 	cat <<-:
 	Don't you think those instructions look better on the web?
 
@@ -1074,7 +1074,7 @@ run_plotter_py0_hint() {
 run_plotter_py0_epilogue() {
 	cat <<-:
 	Do you remember the instructions for this program?  These plots don't
-	resemble the examples from $(_md instructions/README.md).
+	resemble the examples from $(_md instructions/Project_Requirements.md).
 
 	It looks like you've found a $(red bug)!
 
@@ -2271,7 +2271,7 @@ _STEPS=(
 	rename_repo
 	cd_repo
 	ls0
-	view_instructions
+	view_proj_reqs
 	view_markdown_md
 	view_plan
 	edit_readme
