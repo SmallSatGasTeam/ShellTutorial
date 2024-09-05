@@ -94,7 +94,7 @@ _tutr_shortest_path() {
 			local e_here=${here#$LCP}
 			local e_there=${there#$LCP}
 
-			# n.b. this pair of param expansions remove any trailing '/' after $LCP!
+			# n.b. these param expansions remove leading '/' from the front of $LCP
 			e_here=${e_here#/}
 			e_there=${e_there#/}
 
@@ -129,13 +129,15 @@ _tutr_shortest_path() {
 		# ... and wrap the destination directory in quotes if it contains spaces
 		[[ $dest = *" "* ]] && dest="'$dest'"
 
-		# finally, remove a trailing /
-		dest=${dest%/}
+		# finally, remove a trailing / (only if $dest isn't a lone /)
+		[[ $dest != / ]] && dest=${dest%/}
 
 		(( $# >= 3 )) && echo $dest || REPLY=$dest
 		true
 	fi
 }
+
+
 
 # Display the minimal `cd` command needed to get to a target directory
 # Print `cd -` if the target is $OLDPWD
