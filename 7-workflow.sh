@@ -26,7 +26,6 @@ _GitLab() { (( $# == 0 )) && echo $(cyn GitLab) || echo $(cyn $*); }
 _origin() { (( $# == 0 )) && echo $(red origin) || echo $(red $*); }
 _md() { (( $# == 0 )) && echo $(blu Markdown) || echo $(blu $*) ; }
 _code() { (( $# == 0 )) && echo $(cyn code) || echo $(cyn "$*"); }
-_py() { (( $# == 0 )) && echo $(grn Python) || echo $(grn $*) ; }
 _duckie() { (( $# == 0 )) && echo $(ylw DuckieCorp) || echo $(ylw $*) ; }
 source progress.sh
 if [[ -n $_TUTR ]]; then
@@ -1954,7 +1953,7 @@ make_certificate_post() {
 		setopt null_glob local_options
 	fi
 	_ARCHIVE=(*.zip *.tgz)
-	[[ -n $BASH ]] && eval $RESTORE_FAILGLOB && eval $RESTORE_FAILGLOB
+	[[ -n $BASH ]] && { eval $RESTORE_FAILGLOB; eval $RESTORE_NULLGLOB; }
 }
 
 
