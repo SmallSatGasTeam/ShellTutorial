@@ -14,7 +14,6 @@ source ansi-terminal-ctl.sh
 source platform.sh
 source progress.sh
 _nano() { (( $# == 0 )) && echo $(cyn Nano) || echo $(cyn $*) ; }
-_py() { (( $# == 0 )) && echo $(grn Python) || echo $(grn $*) ; }
 if [[ -n $_TUTR ]]; then
 	source editors+viewers.sh
 	source generic-error.sh

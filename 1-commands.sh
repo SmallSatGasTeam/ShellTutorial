@@ -21,7 +21,6 @@ if [[ -n $_TUTR ]]; then
 	source quiz.sh
 	_Google() { echo ${_B}G${_R}o${_Y}o${_B}g${_G}l${_R}e${_z}; }
 	_err() { (( $# == 0 )) && echo $(red _err) || echo $(red "$*"); }
-	_py() { (( $# == 0 )) && echo $(grn Python) || echo $(grn $*) ; }
 fi
 
 _man_not_found() {

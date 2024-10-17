@@ -20,7 +20,6 @@ if [[ -n $_TUTR ]]; then
 	_Google() { echo ${_B}G${_R}o${_Y}o${_B}g${_G}l${_R}e${_z}; }
 	_code() { (( $# == 0 )) && echo $(cyn code) || echo $(cyn "$*"); }
 	_err() { (( $# == 0 )) && echo $(red error) || echo $(red "$*"); }
-	_py() { (( $# == 0 )) && echo $(grn Python) || echo $(grn $*) ; }
 fi
 
 _make_files() {
@@ -111,12 +110,12 @@ _make_corrupt_terminal() {
 
 	Pretty wild, huh?
 
-	You can still run commands when the terminal is in this state.
+	You can still run commands when the $(_term) is in this state.
 	You just can't read the output.
 
 	Try running 'ls', 'echo hello world', and 'cat textfile.txt'.
 
-	Use 'reset' to restore your terminal when you're done. ${esc}(0
+	Use 'reset' to restore your $(_term) when you're done. ${esc}(0
 
 	TEXT
 }
@@ -144,8 +143,8 @@ prologue() {
 	* Using the Unix command line interface (CLI)
 	* Commands and arguments
 	* Hidden files
-	* The difference between the 'shell' and the 'terminal'
-	* How to clear and reset the terminal
+	* The difference between the $(_shell \'shell\') and the $(_term \'terminal\')
+	* How to clear and reset the $(_term)
 	* Cancelling a runaway command
 	* Understanding messages and recovering from errors
 
@@ -171,7 +170,7 @@ tutor_hint_prologue() {
 	I count from zero).  After you have done enough things you'll win, which
 	improves your self-esteem.
 
-	You do things in the shell by running commands.  When I show you a
+	You do things in the $(_shell) by running commands.  When I show you a
 	command I highlight it in green, like this:
 	  $(cmd tutor hint)
 
@@ -436,10 +435,10 @@ hello_world_prologue() {
 	${_W}8  ${_g}ooooooooooooooooooooooo ${_W}888${_Z}   The Unix Command Line Interface (CLI)
 	${_W}8  ${_g}88888888888888888888888 ${_W}888${_Z}   lets you talk to your computer with a
 	${_W}8  ${_g}8888888888888888888888P ${_W}888${_Z}   simple programming language.  This
-	${_W}8  ${_g}8888888888888888888P"   ${_W}888${_Z}   environment is called the $(bld Shell)
+	${_W}8  ${_g}8888888888888888888P"   ${_W}888${_Z}   environment is called the $(_shell Shell)
 	${_W}8  ${_g}8888888888888888P"      ${_W}888${_Z}
 	${_W}8  ${_g}8888888888888P"         ${_W}888${_Z}   In contrast to other languages you have
-	${_W}8  ${_g}8888888888P"            ${_W}888${_Z}   used, the Unix shell prioritizes
+	${_W}8  ${_g}8888888888P"            ${_W}888${_Z}   used, the Unix $(_shell) prioritizes
 	${_W}8  ${_g}8888888P"               ${_W}888${_Z}   $(bld interactivity) above all else.
 	${_W}8  ${_g}8888P"                  ${_W}888${_Z}
 	${_W}8  ${_g}8P"                     ${_W}888${_Z}   Thus, it was intentionally designed
@@ -463,7 +462,7 @@ hello_world_prologue() {
 	In $(_py) you would write:
 	  $(_code 'print("Hello, World")')
 
-	But here in the shell it looks like this:
+	  But here in the $(_shell) it looks like this:
 	  $(cmd echo Hello, World)
 
 	Notice that the arguments $(cmd Hello,) and $(cmd World) are not quoted.
@@ -488,10 +487,10 @@ hello_world_hint() {
 	case $1 in
 		99)
 			cat <<-:
-			Because you're using the $(bld Zsh) shell, you actually have a
+			Because you're using the $(bld Zsh) $(_shell), you actually have a
 			command called $(cmd print) that is equivalent to $(cmd echo).
 
-			Because most students use the $(bld Bash) shell, I encourage $(cmd echo)
+			Because most students use the $(bld Bash) $(_shell), I encourage $(cmd echo)
 			for consistency's sake.
 			:
 			;;
@@ -513,7 +512,7 @@ hello_world_epilogue() {
 		cat <<-:
 		Eh, "$(cmd ${_CMD[@]})" is close enough for now...
 
-		In the shell, as with $(_py), details like CASE and "punctuation"
+		In the $(_shell), as with $(_py), details like CASE and "punctuation"
 		matter.  Be diligent and follow instructions $(bld exactly)!
 
 		:
@@ -522,10 +521,10 @@ hello_world_epilogue() {
 	fi
 
 	cat <<-:
-	Shell commands can take arguments, just like functions in $(_py).
+	$(_shell Shell) commands can take arguments, just like functions in $(_py).
 	The strings $(cyn "'$_PREV1'") and $(cyn "'$_PREV2'") were arguments to $(cmd echo).
 
-	Shell commands follow this syntax:
+	$(_shell Shell) commands follow this syntax:
 	  $(cmd 'command [argument ...]')
 
 	The square brackets surrounding $(cmd 'argument...') in the example indicate
@@ -534,7 +533,7 @@ hello_world_epilogue() {
 	"$(cyn \'command\' takes zero or more arguments)".
 
 	Unlike $(_py) and Java, parentheses do not surround the argument list of
-	shell commands.  Spaces separate arguments from each other instead of
+	$(_shell) commands.  Spaces separate arguments from each other instead of
 	commas.  It $(bld does not) matter how many spaces are present.  One, two or
 	twenty - it's all the same.
 
@@ -544,7 +543,7 @@ hello_world_epilogue() {
 
 	cat <<-:
 
-	In the shell $(bld everything) is regarded as a string - even numbers.  This is
+	In the $(_shell) $(bld everything) is regarded as a string - even numbers.  This is
 	why you don't need quote marks around the words $(cyn "'$_PREV1'") and $(cyn "'$_PREV2'").
 
 	The comma following $(cyn "'Hello,'") in the command
@@ -569,10 +568,10 @@ echo_no_args_prologue() {
 	Part of studying $(_py) is learning which $(_code functions) can be used and
 	how to call them.
 
-	The Unix shell is similar.  Here you learn what $(cmd commands) exist and how
+	The Unix $(_shell) is similar.  Here you learn what $(cmd commands) exist and how
 	to run them.
 
-	$(cmd echo) is the shell's equivalent to $(_py "Python's") $(_code 'print()') function.  Just
+	$(cmd echo) is the $(_shell "shell's") equivalent to $(_py "Python's") $(_code 'print()') function.  Just
 	like $(_code 'print()'), $(cmd echo) takes any number of arguments.  Zero, one, two,
 	or twenty; it's all good.
 
@@ -633,7 +632,7 @@ echo_no_args_epilogue() {
 	Be sure to record the command's $(red name),           ${_B}  (__)${_z}
 	its $(blu purpose), and what $(grn arguments) it takes.
 
-	After a few weeks you will not need these notes to use the shell.
+	After a few weeks you will not need these notes to use the $(_shell).
 	But until then, they are invaluable!
 
 	:
@@ -763,7 +762,7 @@ cat_GENERIC_hint() {
 	fi
 
 	cat <<-:
-	If it freezes, press $(kbd Ctrl-C) to return to the shell prompt.
+	If it freezes, press $(kbd Ctrl-C) to return to the $(_shell) prompt.
 	:
 }
 
@@ -771,7 +770,7 @@ cat_GENERIC_hint() {
 
 cat_textfile_prologue() {
 	cat <<-:
-	You can read files in the shell with the $(cmd cat) command.  Its name is short
+	You can read files in the $(_shell) with the $(cmd cat) command.  Its name is short
 	for "$(bld Concatenate)".  This program is meant to join several files into
 	one.  It takes as arguments names of files and prints their contents,
 	one by one, onto the screen.
@@ -1002,12 +1001,12 @@ reset_prologue() {
 	from $(cmd cat)-ing non-text files like $(cyn MP3s), $(cyn PDFs), $(cyn JPEGs) or $(cyn ZIPs) to the
 	screen.  You just might learn something from what you see.
 
-	However, there is a possibility that this will make your terminal go
+	However, there is a possibility that this will make your $(_term) go
 	$(mgn haywire).  The effect is not permanent, and nothing is ruined.
 	But it can happen when you're working with data, so you need to be
 	prepared for it.  In a moment I will make you do it on purpose.
 
-	First, I need to show you how to fix a $(mgn corrupted) terminal with the
+	First, I need to show you how to fix a $(mgn corrupted) $(_term) with the
 	$(cmd reset) command.
 
 	:
@@ -1017,7 +1016,7 @@ reset_prologue() {
 	cat <<-:
 
 	Don't worry, this won't reboot your computer!  $(cmd reset) just tells the
-	terminal to re-initialize itself so you can read it again.  You'll see
+	$(_term) to re-initialize itself so you can read it again.  You'll see
 	what I mean in a moment.
 
 	Let's do a dry-run of $(cmd reset).
@@ -1048,44 +1047,44 @@ cat_corrupt_pre() {
 cat_corrupt_prologue() {
 	cat <<-:
 	I just created a new file called $(path corrupt_terminal).  When you display it
-	with $(cmd cat), raw data is sent to the terminal where it is misinterpreted,
+	with $(cmd cat), raw data is sent to the $(_term) where it is misinterpreted,
 	resulting in an unreadable, garbled display.
 
-	You can still run commands when the terminal is in this state.  However,
-	results will look like gibberish.  This is because the $(bld Shell) and the
-	$(bld Terminal) are two separate programs.
+	You can still run commands when the $(_term) is in this state.  However,
+	results will look like gibberish.  This is because the $(_shell Shell) and the
+	$(_term Terminal) are two separate programs.
 
 	:
 
 	 _tutr_pressenter
 
 	if [[ $_SH = Zsh ]]; then
-		local shel=$(blu " Zsh")
+		local shel=$(cyn " Zsh")
 	else
-		local shel=$(blu Bash)
+		local shel=$(cyn Bash)
 	fi
 
 	cat <<-:
 	                                                       ${_W}+--------------+
 	                                                       ${_W}|.------------.|
-	$(bld Terminal): Depending on your system, this is a $(rev black)    ${_W}||${_G}$ _${_W}         ||
+	$(_term Terminal): Depending on your system, this is a $(rev black)    ${_W}||${_G}$ _${_W}         ||
 	window with a grid of $(bld white) text, or a $(bld white) window    ${_W}||            ||
 	with $(rev black) text.  It reads the keyboard and displays   ${_W}||            ||
 	text generated by programs.                            ${_W}||            ||
 	                                                       ${_W}|+------------+|
 	                                                       ${_W}+-${_b}==${_W}-----------+${_z}
 
-	${_Y}       _.-''|''-._        ${_z}           $(bld Shell): On your computer this is a
-	${_Y}    .-'     |     \`-.    ${_z}  program called $shel.  Its job is to talk to
-	${_Y}  .'\       |       /\`.  ${_z}         the Operating System on your behalf.
-	${_Y}.'   \      |      /   \`.${_z}    It reads your commands from the keyboard,
-	${_Y}\     \     |     /     / ${_z}  checks whether they are valid and that you
-	${_Y} \`\    \    |    /    /' ${_z}   have permission.  Then it carries them out
-	${_Y}   \`\   \   |   /   /'   ${_z}        and tells you if anything went wrong.
-	${_Y}     \`\  \  |  /  /'     ${_z}
-	${_Y}    _.-\`\ \ | / /'-._    ${_z} In this way $shel protects the delicate, soft
-	${_Y}   {_____\`\\|//'_____}   ${_z} Operating System from your carelessness, just
-	${_Y}           \`-'           ${_z}     as a clam is safe inside its hard shell.
+	${_B}       _.-''|''-._        ${_z}           $(_shell Shell): On your computer this is a
+	${_B}    .-'     |     \`-.    ${_z}  program called $shel.  Its job is to talk to
+	${_B}  .'\       |       /\`.  ${_z}         the Operating System on your behalf.
+	${_B}.'   \      |      /   \`.${_z}    It reads your commands from the keyboard,
+	${_B}\     \     |     /     / ${_z}  checks whether they are valid and that you
+	${_B} \`\    \    |    /    /' ${_z}   have permission.  Then it carries them out
+	${_B}   \`\   \   |   /   /'   ${_z}        and tells you if anything went wrong.
+	${_B}     \`\  \  |  /  /'     ${_z}
+	${_B}    _.-\`\ \ | / /'-._    ${_z} In this way $shel protects the delicate, soft
+	${_B}   {_____\`\\|//'_____}   ${_z} Operating System from your carelessness, just
+	${_B}           \`-'           ${_z}     as a clam is safe inside its hard $(_shell).
 
 	:
 
@@ -1094,9 +1093,9 @@ cat_corrupt_prologue() {
 	cat <<-:
 
 
-	When the terminal is $(mgn corrupted), $shel is unfazed and can still execute
+	When the $(_term) is $(mgn corrupted), $shel is unfazed and can still execute
 	your commands.  After this happens, try running $(cmd echo), $(cmd ls) and $(cmd clear).
-	When you're done, use $(cmd reset) to restore the terminal to working order.
+	When you're done, use $(cmd reset) to restore the $(_term) to working order.
 
 	Are you ready to $(cmd cat corrupt_terminal)?
 	:
@@ -1129,11 +1128,11 @@ reset_again_test() {
 
 reset_again_epilogue() {
 	cat <<-:
-	Most Unix newcomers think they must close and restart the terminal when
+	Most Unix newcomers think they must close and restart the $(_term) when
 	that happens.  That's a lot of hassle when relief is just six keystrokes
 	away!
 
-	$(cmd reset) causes the terminal to re-initialize itself.
+	$(cmd reset) causes the $(_term) to re-initialize itself.
 	It does not need any arguments.
 
 	:
@@ -1149,7 +1148,7 @@ plain_cat_prologue() {
 	program, it is a drastic response to a simple problem.
 
 	Here is a better way: press $(kbd Ctrl-C) to $(red cancel) the frozen program and
-	regain control of the shell.
+	regain control of the $(_shell).
 
 	Did you know that you can get $(cmd cat) stuck just by running it with zero
 	arguments?
@@ -1182,9 +1181,9 @@ plain_cat_epilogue() {
 		understandable as those keys are so close to each other.
 
 		While $(kbd Ctrl-D) does work in certain situations, $(kbd Ctrl-C) is more general and
-		works across most programs in the shell.
+		works across most programs in the $(_shell).
 
-		Just be careful with $(kbd Ctrl-D), as it can kill the shell, too.  It would
+		Just be careful with $(kbd Ctrl-D), as it can kill the $(_shell), too.  It would
 		be a shame if you had to re-do a lesson because you pressed it at the
 		wrong moment.
 		:
@@ -1202,11 +1201,11 @@ plain_cat_epilogue() {
 
 	cat <<-:
 
-	You might be wondering why $(kbd Ctrl-C) doesn't mean $(cyn Copy) in the shell.
+	You might be wondering why $(kbd Ctrl-C) doesn't mean $(cyn Copy) in the $(_shell).
 
 	$(kbd Ctrl-C) as $(red cancel) predates the familiar $(cyn Undo), $(cyn Cut), $(cyn Copy), and $(cyn Paste)
 	shortcuts by a good decade or so.  None of the shortcuts that you have
-	used in other applications do what you expect in the shell.
+	used in other applications do what you expect in the $(_shell).
 	You'll just have to retrain your fingers.
 
 	:
@@ -1220,7 +1219,7 @@ cat_nofile_prologue() {
 	what the computer is telling them.  The command line interface is a
 	conversation with your computer.  Conversations go both ways.
 
-	Get in the habit of carefully reading $(bld all) messages presented to you.
+	Get in the habit of $(cyn carefully reading all messages) presented to you.
 	You'll save countless hours of frustration when the answer is right in
 	front of your nose.
 
@@ -1267,7 +1266,7 @@ cat_nofile_hint() {
 		$WRONG_ARGS)
 			cat <<-:
 			While ${_CMD[1]} technically isn't the name of a file here, many
-			shell commands regard arguments beginning with one or more '-' as
+			$(_shell) commands regard arguments beginning with one or more '-' as
 			OPTIONS instead of FILES.
 
 			They're treated as a class of their own.
@@ -1362,14 +1361,14 @@ command_not_found_prologue() {
 	cat <<-:
 	The last common error you will encounter is "$(_err command not found)".
 	Sometimes this occurs because you don't have a program installed.
-	At other times the program $(bld is) installed, but the shell cannot find it.
+	At other times the program $(bld is) installed, but the $(_shell) cannot find it.
 
 	If you're like me you make $(bld lots) of typing mistakes.  This is the source
 	of 99% of my own "$(_err command not found)" errors.  You'll see me misspell
-	$(cmd python) as $(blu pyhton) in nearly every lecture.
+	$(cmd python) as $(mgn pyhton) in nearly every lecture.
 
 	Better start getting used to it.  Try running $(cmd pyhton) (or some other
-	misspelled command of your own creation) and see what the shell has to
+	misspelled command of your own creation) and see what the $(_shell) has to
 	say about it.
 	:
 }
@@ -1409,7 +1408,7 @@ command_not_found_hint() {
 	cat <<-:
 
 	Try running $(cmd pyhton) (or some other misspelled command of your own
-	creation) to see how the shell responds.
+	creation) to see how the $(_shell) responds.
 	:
 }
 
@@ -1446,8 +1445,8 @@ epilogue() {
 	* Using the Unix command line interface (CLI)
 	* Commands and arguments
 	* Hidden files
-	* The difference between the 'shell' and the 'terminal'
-	* How to clear and reset the terminal
+	* The difference between the $(_shell \'shell\') and the $(_term \'terminal\')
+	* How to clear and reset the $(_term)
 	* Cancelling a runaway command
 	* Understanding messages and recovering from errors
 
