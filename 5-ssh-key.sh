@@ -28,7 +28,6 @@ fi
 # TODO: rewrite this lesson to prefer an ED25519 key (if possible)
 #       macOS defaults to RSA b/c of an older version of OpenSSH
 _KEYSIZE=2048
-_GL_IPADDR=129.123.29.225
 
 
 _ssh_key_is_already_installed_msg() {

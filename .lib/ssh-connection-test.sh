@@ -1,7 +1,7 @@
 typeset -r _GL=gitlab.cs.usu.edu
 typeset -r _GL_HOSTKEY_ED25519=SHA256:tIjwsWWEm+4NppPonV2Fkqe252DJqLWEJ5ygaAHbs2o
 typeset -r _GL_HOSTKEY_ECDSA=SHA256:4x+G97yflra4K2KWnF19ZNrZGL1iqjQaq8HVwu/mX6U
-typeset -r _HTTPS_GITLAB_KEYS=https://$_GL/-/profile/keys
+typeset -r _HTTPS_GITLAB_KEYS=https://$_GL/-/user_settings/ssh_keys
 export _GL_USERNAME
 
 
