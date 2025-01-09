@@ -3,7 +3,7 @@
 . .lib/shell-compat-test.sh
 
 _DURATION=10
-_LSN_VERSION=1.0.1
+_LSN_VERSION=1.0.2
 
 # Put tutorial library files into $PATH if they are not already added
 if [[ -d "$PWD/.lib" && ":$PATH:" != *":$PWD/.lib:"* ]]; then
