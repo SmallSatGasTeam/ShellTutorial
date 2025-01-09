@@ -3,7 +3,7 @@
 . .lib/shell-compat-test.sh
 
 _DURATION=30
-_LSN_VERSION=1.0.0
+_LSN_VERSION=1.0.1
 
 # Put tutorial library files into $PATH if they are not already added
 if [[ -d "$PWD/.lib" && ":$PATH:" != *":$PWD/.lib:"* ]]; then
@@ -106,10 +106,11 @@ create_files() {
 	import unittest, sys
 	from Testing import test_numbers, test_booleans
 
+	loader = unittest.TestLoader()
 	suite = unittest.TestSuite()
 
 	for test in (test_numbers.TestNumbers, test_booleans.TestBooleans):
-	    suite.addTest(unittest.makeSuite(test))
+	    suite.addTest(loader.loadTestsFromTestCase(test))
 
 	runner = unittest.TextTestRunner(verbosity=2)
 	if not runner.run(suite).wasSuccessful():
