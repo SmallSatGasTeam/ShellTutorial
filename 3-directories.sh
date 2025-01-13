@@ -374,7 +374,7 @@ cd_artist0_album2_epilogue() {
 	cat <<-:
 	The location that a program runs in is called its "$(bld Current Working)
 	$(bld Directory)" ($(bld CWD) for short).  $(bld CWD) is not just for shells; every program
-	runnning on your computer has its own $(bld CWD).
+	running on your computer has its own $(bld CWD).
 
 	:
 	_tutr_pressenter
