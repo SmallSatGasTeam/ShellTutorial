@@ -26,7 +26,7 @@ These are bugs that haven't been fixed yet or cannot be fixed without compromisi
         *   `ls -r1 -t`
         *   `ls -r -t1`
         *   ... and so on for 24 permutations
-    *   Advanced shell users are aware of even more ways to produce the expected output through the use of *long options*. The above command could also be written as `ls --width=1 --reverse --time=use` with the options appearing in any order.  However, commands of this from are not accepted.
+    *   Advanced shell users are aware of even more ways to produce the expected output through the use of *long options*. The above command could also be written as `ls --width=1 --reverse --time=use` with the options appearing in any order.  However, commands of this form are not accepted.
     *   The tutor does not accept long options because:
         *   Correctly recognizing them increases the complexity of the tutor's code by a large factor
         *   Long options don't work on all systems (particularly macOS); supporting them makes the tutor much more complex with no benefit to those users
