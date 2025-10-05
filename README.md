@@ -187,14 +187,14 @@ There are two ways to open the terminal:
 
 Beginning with lesson **1-commands.sh**, the Unix manual becomes an important part of the tutorial.  Git for Windows doesn't come with the manual, so I prepared an installer for you.
 
-0.  Download this file: [install-man-pages-1.sh](https://gitlab.cs.usu.edu/duckiecorp/shell-tutor/uploads/16ca5c3f8c552922638bfb12ff375e2c/install-man-pages-1.sh)
+0.  Download this file: [install-man-pages-2.sh](https://gitlab.cs.usu.edu/-/project/14201/uploads/ab9fe099e93cb9a0c2484c7273ed538d/install-man-pages-2.sh)
 1.  Note where this file was saved on your computer
 2.  Open a new Git Bash terminal as an *Administrator* (right-click the Git+Bash icon and choose "Run as Administrator", or select that option from the Start menu)
     *   When prompted "Do you want to allow this app to make changes to your device?", click **Yes**
     *   This may open the shell into a location outside of your home directory.  Navigate to the directory where you downloaded the installer a few moments ago
     *   First run the `cd` command by itself to take you to your home directory
     *   Then run `cd` again with the name of the folder that contains the installer, ex: `cd Downloads`
-3.  Run the installer with this command: `sh install-man-pages-1.sh`
+3.  Run the installer with this command: `sh install-man-pages-2.sh`
     *   After this program completes, the Bash terminal opened as Administrator may be closed
 4.  Open a new Bash terminal to verify that the manual was installed
     *   Run `man ls`; the test is successful when information about the `ls` command appears
