@@ -1,13 +1,11 @@
-
-# Source configuration files for the shell tutor
+# Configuration files for the Shell Tutor
 #
-# Configuration files have the following hierarchy:
-# 0. .tutor.conf located in the shell tutor library directory
-# 1. .tutor.conf located in the shell tutor distribution (same level as the lesson.sh files)
+# Configuration values are stored in a hierarchy:
+# 0. `tutor.conf` located in the shell tutor library directory
+# 1. Hidden `.tutor.conf` located in the shell tutor distribution (same level as the lesson files)
 # 2. Default values hadrdcoded here
 #
 # All configuration files will be sourced if present, but may be overriden by values with a higher precedence in the hierarchy
-
 
 
 # Default values to ensure Shell Tutor does not get into weird states if 
@@ -15,12 +13,12 @@
 _MAINTAINER_EMAIL=erik.falor@usu.edu
 _DEPLOYMENT_NAME="NOT_CONFIGURED"
 
-if [[ -f .tutor.conf ]]; then
-    # Configuration file in the lib
-    source .tutor.conf
+# Tutor configuration file under .lib/
+if [[ -f .lib/tutor.conf ]]; then
+    source .lib/tutor.conf
 fi
 
+# Tutor configuration file at the repository root
 if [[ -f ./.tutor.conf ]]; then
-    # Configuration file at the same level as the lesson
     source ./.tutor.conf
 fi
