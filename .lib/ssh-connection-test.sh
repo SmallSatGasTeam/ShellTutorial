@@ -28,15 +28,17 @@ _ssh_key_exists_msg() {
 }
 
 
+# TODO: combine _ssh_key_is_missing_msg and _ssh_key_exists_msg into one
+# It is not clear why there should be two of these functions.
 _ssh_key_is_missing_msg() {
 	cat <<-MSG
 	${_Y}    ______
-	${_Y}---'    __)     ${_Z}Your SSH key is missing!
-	${_Y}         __)    ${_Z}You can fix this yourself by running lesson 5 in the
-	${_Y}          __)   ${_Z}original Shell Tutor again:
-	${_Y}       ____)    ${_Z}Run this command:
-	${_Y}---.  (         ${_Z}  $(cmd MENU=yes ./tutorial.sh)
-	${_Y}    '. \\        ${_Z}Then choose ${_W}5-ssh-key.sh
+	${_Y}---'    __)     ${_Z}You do not have an SSH key!
+	${_Y}         __)    ${_Z}
+	${_Y}          __)   ${_Z}You can fix this yourself with the SSH Key Setup Tool:
+	${_Y}       ____)    ${_Z}$(path https://gitlab.cs.usu.edu/duckiecorp/ssh-key-setup)
+	${_Y}---.  (         ${_Z}
+	${_Y}    '. \\        ${_Z}Follow the instructions in the $(bld Quick Start) section.
 	${_Y}      \\_)
 	${_Y}                ${_Z}Contact $_EMAIL if you need assistance.
 
@@ -250,6 +252,8 @@ _tutr_assert_ssh_connection_is_okay() {
 				# See if there is a local SSH key
 				if _tutr_ssh_key_is_present; then
 					_tutr_die _ssh_key_exists_msg $REPLY
+				else
+					_tutr_die _ssh_key_is_missing_msg $REPLY
 				fi
 			elif [[ $msg == *"Could not resolve hostname"* ]]; then
 				# DNS is down
