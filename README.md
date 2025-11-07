@@ -10,10 +10,10 @@
     *   Instructions for [Windows users](#instructions-for-windows-users)
 1.  Clone this repository.  Your output may be slightly different than this:
     ```
-    $ git clone https://gitlab.cs.usu.edu/duckiecorp/shell-tutor
+    $ git clone https://github.com/SmallSatGasTeam/BashTutorial
 
     Cloning into 'shell-tutor'...
-    warning: redirecting to https://gitlab.cs.usu.edu/duckiecorp/shell-tutor.git/
+    warning: redirecting to https://github.com/SmallSatGasTeam/BashTutorial
     remote: Enumerating objects: 40, done.
     remote: Counting objects: 100% (40/40), done.
     remote: Compressing objects: 100% (39/39), done.
@@ -56,9 +56,9 @@
 
 ## Command Logging
 
-The Shell Tutor makes **session logs** of your activity during lessons.  Session logs contain commands you ran, the Shell Tutor's state, and other details about your environment. *Session logs are not used for grading*.  They're used to improve the tutor, identify tough lessons, and guide enhancements.  The logs are confidential, and are seen only by your instructor and the developers unless you consent to share further.  At the end of the final lesson, the tutor will help you submit these logs to your instructor.
+The Shell Tutor makes **session logs** of your activity during lessons.  Session logs contain commands you ran, the Shell Tutor's state, and other details about your environment. *Session logs are not used for grading*.  They're used to improve the tutor, identify tough lessons, and guide enhancements.  The logs are confidential, and are seen only by the developers unless you consent to share further.
 
-If you have any questions about command logging, please contact Jaxton Winder (email: `jaxton DOT winder AT usu DOT edu`) or Erik Falor (email: `erik DOT falor AT usu DOT edu`).
+If you have any questions about command logging, please contact Joshua Hessing (email: jhessing@gas.usu.edu).
 
 
 ## Hints
@@ -89,22 +89,8 @@ When you encounter a problem with a lesson, please file a bug-report so I can fi
     -   The command you ran
     -   The erroneous output
     -   The output of the bug report command
-*   Send this email to `erik DOT falor AT usu DOT edu`.
+*   Send this email to `jhessing@gas.usu.edu`.
     *   It is best to not send screenshots; plain text is much easier for me to work with.
-
-
-## Submitting Your Work For Credit (CS 1440 Students)
-
-*   You do not submit your work to Canvas in this class.
-*   The final lesson in the tutorial teaches you how to turn your in work with Git.
-*   Because you will not have any evidence of completion until the very end of the tutorial, this assignment is graded on a **pass/fail** basis.
-    *   The only thing you are graded on is *honest completion of the tutorial*.
-    *   Your grade does not depend on *speed* or *accuracy*.
-        *   You don't get a higher score for using fewer commands.
-        *   Nor is your score reduced if it takes you multiple attempts to finish a lesson.
-*   One of the files that you will submit is a log of commands that you ran during the tutorial.
-    *   This data helps identify parts of the tutorial that are confusing or buggy.
-    *   The contents of this log do not affect your grade; **this is a pass/fail assignment**.
 
 
 ## Instructions For **macOS** Users
@@ -156,50 +142,18 @@ You do not need to restart the Terminal app for this setting to take effect.
 
 ## Instructions For **Windows** Users
 
-*Note for CS 1440 students: you should use _Git for Windows_ instead of _Windows Subsystem For Linux (WSL)_.*
+*Note: The F' framework used by the FSW team requires linux so GAS team members are encouraged to install Windows Subsystem Linux (WSL) instead of Git for windows.*
 
 ### Installing Git for Windows
 
-*Note for CS 1440 students: there is a video on Canvas that walks you through this process*
-
-0.  Visit [https://gitforwindows.org/](https://gitforwindows.org/)
-1.  Click the **Download** button
-2.  Locate and run the installer
-3.  You will be presented with several options.  By and large you should keep the defaults, but keep a close eye out for these ones:
-    *   **Choosing the default editor used by Git**
-        -   Select the *Nano* editor, which is at the very top of the drop-down list (scroll up to see it)
-    *   **Choose a credential helper**
-        -   Select `None`
-    *   **Configuring experimental options**
-        -   Enable *Experimental support for pseudo consoles*
-4.  If you missed one of these options, re-run the installer to try again
-
-
-### How To Open The Git+Bash Terminal
-
-There are two ways to open the terminal:
-
-0.  Press the Windows key or click the Start menu, then type "Git Bash" to locate the app
-1.  Right-click the desktop or a folder and select "Open Git Bash here" from the menu
-
-
-### Installing the Unix Manual
-
-Beginning with lesson **1-commands.sh**, the Unix manual becomes an important part of the tutorial.  Git for Windows doesn't come with the manual, so I prepared an installer for you.
-
-0.  Download this file: [install-man-pages-2.sh](https://gitlab.cs.usu.edu/-/project/14201/uploads/ab9fe099e93cb9a0c2484c7273ed538d/install-man-pages-2.sh)
-1.  Note where this file was saved on your computer
-2.  Open a new Git Bash terminal as an *Administrator* (right-click the Git+Bash icon and choose "Run as Administrator", or select that option from the Start menu)
-    *   When prompted "Do you want to allow this app to make changes to your device?", click **Yes**
-    *   This may open the shell into a location outside of your home directory.  Navigate to the directory where you downloaded the installer a few moments ago
-    *   First run the `cd` command by itself to take you to your home directory
-    *   Then run `cd` again with the name of the folder that contains the installer, ex: `cd Downloads`
-3.  Run the installer with this command: `sh install-man-pages-2.sh`
-    *   After this program completes, the Bash terminal opened as Administrator may be closed
-4.  Open a new Bash terminal to verify that the manual was installed
-    *   Run `man ls`; the test is successful when information about the `ls` command appears
-    *   Press `q` to quit the man page viewer
-    *   Seek help if you see the message `bash: man: command not found`
+1. Visit [Microsoft Install WSL Instructions](https://learn.microsoft.com/en-us/windows/wsl/install)
+2. Complete the instructions in the **Install WSL Command** section
+   *    *Note: The other sections can be valuable but the "Install WSL Command" section is the only one required to get started.*
+3. Restart your computer
+4. Search for the Ubuntu application in the windows search bar
+5. Open Ubuntu
+6. Follow instructions to finish setup. **You will need the password you set so don't forget it!**
+7. Once the terminal is open, run the command `sudo apt install git`
 
 
 
