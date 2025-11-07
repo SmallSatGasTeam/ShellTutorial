@@ -228,9 +228,6 @@ tutor_hint_epilogue() {
 
 	cat <<-:
 
-	Speaking of important instructions, this is how you can make sure to get
-	credit for finishing this lesson:
-
 	After your progress bar is filled up, I will make some concluding
 	remarks and then record your completion.  If you close the tutorial
 	$(bld before) it quits on its own (say, by clicking the $(red close) button up in the
@@ -359,77 +356,6 @@ tutor_bug_epilogue() {
 	Now you're $(bld really) ready to begin!
 
 	:
-	_tutr_pressenter
-}
-
-
-ask_about_pretest_prologue() {
-	cat <<-HERE
-	Before we start your tutoring session, I have an important question.
-
-	I need your honesty here, as this will help me teach you better.
-	HERE
-
-	_tutr_pressenter
-
-	cat <<-HERE
-	
-	$(path Have you done the Shell Tutor Pre-Exam on PrairieLearn)?
-
-	HERE
-
-	_tutr_pressenter
-
-	cat <<-HERE
-
-	This was the pre-exam that had you $(bld drag-and-drop blocks) to construct 
-	commands. It asked you questions about things we will be learning
-	together. Many of these questions you may not have known the answer to.
-
-	I really need you to do this exam before starting our tutoring session.
-	How well you do on this exam does not matter to me, but it will help me 
-	figure out what you may already know.
-
-	This exam will help me figure out how to be an even better tutor for 
-	you.
-	HERE
-
-	_tutr_pressenter
-
-	cat <<-HERE
-	$(bld If you have already done the test,) enter the command: $(cmd true) 
-
-	$(bld If you have not done the test,) enter the command: $(cmd exit) 
-
-	You can come back to the Shell Tutor after finishing this pre-test.
-	HERE
-
-}
-
-ask_about_pretest_test() {
-	if   [[ ${_CMD[0]} == true ]]; then return 0
-	else return 1
-	fi
-}
-
-ask_about_pretest_epilogue() {
-	cat <<-HERE
-	Thank you for doing that pre-test for me! I know it was a lot to ask of
-	you. We will be able to use your results on this test to see how well 
-	I can teach you and allow me to figure out how to teach you better.
-
-	Remember, you are not going to be graded for how well you did on the 
-	test; I'll be giving you credit for just doing it. It is similar to how
-	you will be graded for doing the Shell Tutor. As long as you complete
-	all of the lessons, you will get full-credit for the Shell Tutor. I 
-	do not care about how long it takes you to finish the Shell Tutor, how
-	many commands it takes to finish, or how many times you "mess up" typing
-	a command. 
-	
-	All I care about is you doing the lessons and learning along the way :)
-
-	We can continue on with the lesson now.
-	HERE
 	_tutr_pressenter
 }
 
@@ -1435,7 +1361,7 @@ epilogue() {
 
 	         $(red DO NOT CLOSE THE TERMINAL WINDOW YET!)
 
-	The tutorial must shut down so you can get credit for this lesson.
+	The tutorial must shut down so this lesson is marked as completed.
 	If you close the window too soon, you'll have to re-do $(bld the whole thing).
 
 	Just keep pressing $(kbd ENTER) until you see the tutorial map.
@@ -1473,7 +1399,6 @@ cleanup() {
 source main.sh && _tutr_begin \
 	tutor_hint \
 	tutor_bug \
-	ask_about_pretest \
 	hello_world \
 	echo_no_args \
 	ls \

@@ -184,7 +184,7 @@ create_files() {
 	Besides Nano, there are other popular text editors such as Vim and
 	Emacs.  While most developers prefer to work in an IDE, it is not
 	uncommon for others to work exclusively in a text editor.  You can use
-	your preferred editor in this class (and in this lesson).  If you do not
+	your preferred editor.  If you do not
 	already have a strong preference, Nano is fine.
 
 	Use your editor to complete the following tasks:
@@ -328,7 +328,7 @@ create_files() {
 	*   [ ] More or less working code.
 	*   [ ] Note any relevant and interesting events that happened while you wrote the code.
 	    *   e.g. things you learned, things that didn't go according to plan.
-	*   [ ] **Tag** the last commit in this phase `implemented` and push it to GitLab.
+	*   [ ] **Tag** the last commit in this phase `implemented` and push it to GitHub.
 
 
 	## Phase 3: Testing and Debugging (tag name `tested`)
@@ -340,7 +340,7 @@ create_files() {
 	    *   Include a description of what happened for each test case.
 	    *   For any bugs discovered, describe their cause and remedy.
 	    *   Write your test cases in plain language such that a non-coder could run them and replicate your experience.
-	*   [ ] **Tag** the last commit in this phase `tested` and push it to GitLab.
+	*   [ ] **Tag** the last commit in this phase `tested` and push it to GitHub.
 
 
 	## Phase 4: Deployment (tag name `deployed`)
@@ -348,9 +348,9 @@ create_files() {
 
 	Deliver:
 
-	*   [ ] **Tag** the last commit in this phase `deployed` and push it to GitLab.
-	*   [ ] Your repository is pushed to GitLab.
-	*   [ ] **Verify** that your final commit was received by browsing to its project page on GitLab.
+	*   [ ] **Tag** the last commit in this phase `deployed` and push it to GitHub.
+	*   [ ] Your repository is pushed to GitHub.
+	*   [ ] **Verify** that your final commit was received by browsing to its project page on GitHub.
 	    *   Ensure the project's URL is correct.
 	    *   Look for all of the tags in the **Tags** tab.
 	    *   Review the project to ensure that all required files are present and in correct locations.
@@ -380,7 +380,7 @@ create_files() {
 	        *   ...your computer's hardware?
 	        *   ...the operating system?
 	        *   ...to the next version of Python?
-	*   [ ] Make one final commit and push your **completed** Software Development Plan to GitLab.
+	*   [ ] Make one final commit and push your **completed** Software Development Plan to GitHub.
 	*   [ ] Respond to the **Assignment Reflection Survey** on Canvas.
 	TEXT
 
@@ -679,13 +679,8 @@ mkdirs_ff() {
 # mkdir to create necessary dirs + junk/
 mkdirs_prologue() {
 	cat <<-:
-	For each assignment in this class I will give you starter code that is
-	organized in a standard way.  Except for $(bld this) directory; here there are
-	a bunch of disorganized files.
-
-	To teach you how the starter code will be organized and to give you more
-	practice with commands learned in previous lessons, you will sort these
-	files into their proper locations.
+	To give you more practice with commands learned in previous lessons, 
+	you will sort these files into their proper locations.
 
 	Use as many commands as needed to create these new directories:
 
@@ -1172,10 +1167,6 @@ edit_plan_prologue() {
 	It is a good habit to document your efforts in a Software Development
 	Plan.  As you work on a project over the course of months or years this
 	information will serve you and your teammates well.
-
-	A Software Development Plan (SDP) is required for every assignment in
-	this class.  I'll spend time in a lecture explaining what this document
-	entails and how it helps you to design better software.
 
 	Leave this directory and go back into $(path ../doc).
 

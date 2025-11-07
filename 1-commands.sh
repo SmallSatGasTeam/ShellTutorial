@@ -34,7 +34,7 @@ _man_not_found() {
 
 			If this error persists, contact $_EMAIL
 			MNF
-			_tutr_open 'https://gitlab.cs.usu.edu/duckiecorp/shell-tutor#installing-the-unix-manual'
+			_tutr_open 'https://github.com/SmallSatGasTeam/ShellTutorial#installing-the-unix-manual'
 			;;
 		*)
 		cat <<-MNF
@@ -655,7 +655,7 @@ indentation_quiz_hint() {
 	*)
 		cat <<-:
 		The important thing here isn't to memorize indentation styles from a
-		programming language you aren't using in this class.  This is to
+		programming language you aren't using.  This is to
 		help you practice navigating a long document in the $(cmd less) pager.
 
 		Run $(cmd less $IFILE) to read up on the indentation types and

@@ -1,8 +1,8 @@
-typeset -r _GL=gitlab.cs.usu.edu
+typeset -r _GH=github.com
 typeset -r _GL_HOSTKEY_ED25519=SHA256:tIjwsWWEm+4NppPonV2Fkqe252DJqLWEJ5ygaAHbs2o
 typeset -r _GL_HOSTKEY_ECDSA=SHA256:4x+G97yflra4K2KWnF19ZNrZGL1iqjQaq8HVwu/mX6U
-typeset -r _HTTPS_GITLAB_KEYS=https://$_GL/-/user_settings/ssh_keys
-export _GL_USERNAME
+typeset -r _HTTPS_GITHUB_KEYS=https://$_GH/settings/keys
+export _GH_USERNAME
 
 
 # TODO v2.0: when an SSH key already exists, offer to
@@ -12,11 +12,11 @@ export _GL_USERNAME
 _ssh_key_exists_msg() {
 	cat <<-MSG
 	I found an SSH key named $(path $(basename $1)) under $(path ~/.ssh),
-	but was unable to login to GitLab.
+	but was unable to login to GitHub.
 
 	${_Y} 8 8 8 8               ,ooo.    ${_Z}Re-create your key with $(cmd ssh-keygen), add
-	${_Y} 8a8 8a8              oP   ?b   ${_Z}add it to your GitLab profile on
-	${_Y}d888a888zzzzzzzzzzzzzz8     8b  ${_C}${_u}$_HTTPS_GITLAB_KEYS${_Z},
+	${_Y} 8a8 8a8              oP   ?b   ${_Z}add it to your GitHub profile on
+	${_Y}d888a888zzzzzzzzzzzzzz8     8b  ${_C}${_u}$_HTTPS_GITHUB_KEYS${_Z},
 	${_Y} '""^""'              ?o___oP'  ${_Z}then restart this lesson.
 
 	Contact $_EMAIL if you need assistance.
@@ -28,7 +28,7 @@ _ssh_key_exists_msg() {
 }
 
 
-# TODO: combine _ssh_key_is_missing_msg and _ssh_key_exists_msg into one
+# TODO: combine _ssh_key_is_missing_msg and _ssh_key_exists_msg into one !!!
 # It is not clear why there should be two of these functions.
 _ssh_key_is_missing_msg() {
 	cat <<-MSG
@@ -45,12 +45,12 @@ _ssh_key_is_missing_msg() {
 	MSG
 }
 
-
+# !!! This is gonna take some work
 _ssh_add_hostkey_msg() {
 	cat <<-:
-	Checking connection to $(cyn $_GL)...
+	Checking connection to $(cyn $_GH)...
 
-	Upon your first connection to $(ylw "DuckieCorp's") GitLab server from this
+	Upon your first connection to $(ylw "The GAS Team's") GitHub server from this
 	device, you must verify that you're linking to the $(bld real) server and
 	not an imposter.
 
@@ -104,7 +104,7 @@ _unable_to_determine_username() {
 
 	${_Y}     .-""""""-.      ${_Z}
 	${_Y}   .'          '.    ${_Z}
-	${_Y}  /   ${_W}O      O   ${_Y}\   ${_Z} I was unable to determine your username on GitLab
+	${_Y}  /   ${_W}O      O   ${_Y}\   ${_Z} I was unable to determine your username on GitHub
 	${_Y} :           ${_B}'   ${_Y} :  ${_Z}
 	${_Y} |                |  ${_Z} Please send this error message along with the
 	${_Y} :    .------.    :  ${_Z} output of running $(cmd ./bug-report.sh) to
@@ -206,11 +206,11 @@ _other_problem_msg() {
 	MSG
 }
 
-# There are four ways connecting to GitLab could fail
+# There are four ways connecting to GitHub could fail
 #  0. No internet|host key verification failed = fix the problem and try again
-#  1. No local SSH keys = create and upload new key to GitLab
-#  2. Local SSH key is not on GitLab = don't re-create, but upload to GitLab
-#  3. Local key exists on GitLab = mark this lesson complete and move on
+#  1. No local SSH keys = create and upload new key to GitHub
+#  2. Local SSH key is not on GitHub = don't re-create, but upload to GitHub
+#  3. Local key exists on GitHub = mark this lesson complete and move on
 #
 # Testing the various modes of failure:
 #
@@ -221,18 +221,21 @@ _other_problem_msg() {
 #
 # The authenticity of host '...' can't be established
 #   Remove host keys with
-#     $ ssh-keygen -R gitlab.cs.usu.edu
+#     $ ssh-keygen -R github.
 #
-# ssh: connect to host gitlab.cs.usu.edu port 22: Connection timed out
+# ssh: connect to host github.cs.usu.edu port 22: Connection timed out
 #   (triggered by blocking the host in iptables:
-#     $ sudo iptables -A OUTPUT -o wlan0 -d gitlab.cs.usu.edu -j DROP
+#     $ sudo iptables -A OUTPUT -o wlan0 -d github.cs.usu.edu -j DROP
 #   This command removes that rule
 #     $ sudo iptables -D OUTPUT 1
+
+
+# !!! This will also take a bunch of work
 _tutr_assert_ssh_connection_is_okay() {
 	[[ -z $DEBUG ]] && clear || set -x
 
 	echo Testing connection to gitlab.cs.usu.edu...
-	ssh-keygen -F $_GL >/dev/null 2>&1 || _tutr_info _ssh_add_hostkey_msg
+	ssh-keygen -F $_GH >/dev/null 2>&1 || _tutr_info _ssh_add_hostkey_msg
 
 	local msg stat
 	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GL 2>&1)

@@ -1374,28 +1374,16 @@ git_status6_epilogue() {
 # 17. View configured remotes
 git_remote_v_prologue() {
 	cat <<-:
-	                                        ${_y}           ___
-	                                        ${_y}   _______|___|______
-	Your $(_local local repository) is a clone of my  ${_C}__${_y}|__________________|
-	repo. With this new commit, your local  ${_C}\\  ${_y}]________________[${_C} \`---.
-	repo has diverged from $(_remote my original).     ${_C} \`.${_z}     help!        ${_C} ___  L
-	The next commands I teach you will let  ${_C}  |${_g}   _  ${_z}/           ${_C}|   L |
-	you merge these divergant repositories  ${_C}  |${_g} .'_\`--.___   __  ${_C}|   | |
-	back into harmony.  But before I go     ${_C}  |${_g}( 'o\`   - .\`.'_ ) ${_C}|   F F
-	there, let's consider the implications  ${_C}  |${_g} \`-._      \`_\`./_ ${_C}|  / /
-	of this.                                ${_C}  J${_g}   '/\\\\    ( .'/ )${_C}F.' /
-	                                        ${_C}   L${_g} ,__//\`---'\`-'_/${_C}J  .'
-	$(_local This repo) knows that it was cloned from ${_C}   J${_g}  /-'        '/ ${_C}F.'
-	my GitLab account.  So do all of your   ${_C}    L${_g}            '${_C} J'
-	classmates' repos.  What would happen   ${_C}    J ${_Z}\`.\`-. .-'.' ${_C} F
-	if everyone in the class $(bld "harmonized")     ${_C}     L  ${_Z}\`.-'.-'   ${_C}J
-	their repos with $(_remote my original)?  Unless   ${_C}     |${_Z}__(__(___)__${_C}|${_Z}
-	you all carefully coordinated with each ${_y}     F            J
-	other, it would quickly devolve into    ${_y}    J              L
-	a $(bld confusing mess).                       ${_y}    |______________|
 
-	(To be honest, I don't know why there is a frog in this blender.
-	I just wanted you to think of something messy.)
+	Your $(_local local repository) is a clone of the
+	official GAS Shell-Tutor repo. With this new commit,
+	your local repo has diverged from ($_remote the original).
+	The next commands I teach you will let you merge these
+	divergent repositories back into harmony. Although it is
+	possible to have a repo maintained completely locally, usually
+	you have some database off your machine where the repo is
+	saved. This is what allows us to use Git to share work between
+	machines.
 
 	:
 
@@ -1403,24 +1391,25 @@ git_remote_v_prologue() {
 
 	cat <<-:
 
-	In this class, projects are submitted through $(_Git), so there isn't much
-	to do with them on Canvas. Aside from reading grader feedback, checking
-	your scores, and completing the post-project reflection, there's $(bld nothing)
-	else you need to do with projects on Canvas.
-
-	Instead, you will create a $(_remote remote repository) under your own account on
-	my GitLab server and turn in your work there.  Your clone will remain
-	isolated from the others and can go on to have an identity of its own.
-	No mess, no fuss.  And (this is the most important bit) $(bld no frogs will)
-	$(bld be hurt.)
-
-	You will do this $(bld once) for every project.  It is accomplished entirely
-	on the command line.
+	On this team, all code is managed with Git because of the
+	version control and remote features. As such, it's important to
+	remember that any code you push (save) to the remote repository
+	will be seen by every other team member. If your code breaks
+	the flight software on your computer and you push it, then 
+	your code will now break the software on everyone else's computer
+	as well. It's a good practice to run the code before you push it
+	to make sure you haven't broken the system. Always avoid pushing
+	non-functional code unless you're trying to get help from someone
+	else with a bug.
 
 	:
 	_tutr_pressenter
 
 	cat <<-:
+
+	When you ran `git clone` you downloaded this repository from
+	the GitHub database where it was stored. I will now teach you how to
+	modify the location of your remote using the $(cmd git remote) subcommand.
 
 	In the next three steps you will use the $(cmd git remote) subcommand in a few
 	different ways.
@@ -1429,7 +1418,7 @@ git_remote_v_prologue() {
 	mine by running
 	  $(cmd git remote -v)
 
-	Try it!  Look for the username ($(cyn duckiecorp)) in the URL that is printed.
+	Try it!  Look for the username ($(cyn SmallSatGasTeam)) in the URL that is printed.
 	:
 }
 
@@ -1662,7 +1651,7 @@ git_remote_add_prologue() {
 	When entering the URL, it is very important that you NOT change:
 
 	  * Punctuation, such as slashes $(ylw /) and colons $(ylw :)
-	  * $(ylw git@gitlab.cs.usu.edu)
+	  * $(ylw git@github.com)
 	  * $(ylw cs1440)
 	  * $(ylw proj$_A)
 

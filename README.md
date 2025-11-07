@@ -10,10 +10,10 @@
     *   Instructions for [Windows users](#instructions-for-windows-users)
 1.  Clone this repository.  Your output may be slightly different than this:
     ```
-    $ git clone https://github.com/SmallSatGasTeam/BashTutorial
+    $ git clone https://github.com/SmallSatGasTeam/ShellTutorial
 
     Cloning into 'shell-tutor'...
-    warning: redirecting to https://github.com/SmallSatGasTeam/BashTutorial
+    warning: redirecting to https://github.com/SmallSatGasTeam/ShellTutorial
     remote: Enumerating objects: 40, done.
     remote: Counting objects: 100% (40/40), done.
     remote: Compressing objects: 100% (39/39), done.

@@ -7,3 +7,4 @@ shell-logs.tgz
 *~
 .logr
 test.sh
+findWords.py
