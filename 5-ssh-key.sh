@@ -76,12 +76,12 @@ _ssh_key_exists_msg() {
 _tutr_check_ssh_connection() {
 	[[ -z $DEBUG ]] && clear || set -x
 
-	ssh-keygen -F $_GL >/dev/null 2>&1 || _tutr_info _ssh_add_hostkey_msg
+	ssh-keygen -F $_GH >/dev/null 2>&1 || _tutr_info _ssh_add_hostkey_msg
 
 	local msg stat ret
-	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GL 2>&1)
+	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GH 2>&1)
 	stat=$?
-	ret=0
+	ret=1
 
 	case $stat in
 		0)

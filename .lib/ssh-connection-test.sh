@@ -1,6 +1,7 @@
 typeset -r _GH=github.com
-typeset -r _GL_HOSTKEY_ED25519=SHA256:tIjwsWWEm+4NppPonV2Fkqe252DJqLWEJ5ygaAHbs2o
-typeset -r _GL_HOSTKEY_ECDSA=SHA256:4x+G97yflra4K2KWnF19ZNrZGL1iqjQaq8HVwu/mX6U
+typeset -r _GH_HOSTKEY_ED25519=SHA256:AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+typeset -r _GH_HOSTKEY_RSA=RSA:AAAAB3NzaC1yc2EAAAADAQABAAABgQCj7ndNxQowgcQnjshcLrqPEiiphnt+VTTvDP6mHBL9j1aNUkY4Ue1gvwnGLVlOhGeYrnZaMgRK6+PKCUXaDbC7qtbW8gIkhL7aGCsOr/C56SJMy/BCZfxd1nWzAOxSDPgVsmerOBYfNqltV9/hWCqBywINIR+5dIg6JTJ72pcEpEjcYgXkE2YEFXV1JHnsKgbLWNlhScqb2UmyRkQyytRLtL+38TGxkxCflmO+5Z8CSSNY7GidjMIZ7Q4zMjA2n1nGrlTDkzwDCsw+wqFPGQA179cnfGWOWRVruj16z6XyvxvjJwbz0wQZ75XK5tKSb7FNyeIEs4TT4jk+S4dhPeAUC5y+bDYirYgM4GC7uEnztnZyaVWQ7B381AK4Qdrwt51ZqExKbQpTUNn+EjqoTwvqNj4kqx5QUCI0ThS/YkOxJCXmPUWZbhjpCg56i+2aB6CmK2JGhn57K5mj0MNdBXA4/WnwH6XoPWJzK5Nyu2zB3nAZp+S5hpQs+p1vN1/wsjk=
+typeset -r _GH_HOSTKEY_ECDSA=SHA256:AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
 typeset -r _HTTPS_GITHUB_KEYS=https://$_GH/settings/keys
 export _GH_USERNAME
 
@@ -55,8 +56,8 @@ _ssh_add_hostkey_msg() {
 	not an imposter.
 
 	Look for the fingerprint in a line of text that begins as one of these:
-	  $(bld ED25519 key fingerprint is  ${_GL_HOSTKEY_ED25519:0:7}...)
-	  $(bld ECDSA key fingerprint is  ${_GL_HOSTKEY_ECDSA:0:7}...)
+	  $(bld ED25519 key fingerprint is  ${_GH_HOSTKEY_ED25519:0:7}...)
+	  $(bld ECDSA key fingerprint is  ${_GH_HOSTKEY_ECDSA:0:7}...)
 
 	*  If the server's fingerprint $(bld exactly) matches $(grn mine,) answer "$(kbd yes)".
 	   Afterward, you will not see this message again.
@@ -64,8 +65,8 @@ _ssh_add_hostkey_msg() {
 	   $_EMAIL.
 
 	The server's fingerprint should match one of these:
-	                    $(grn $_GL_HOSTKEY_ECDSA)
-	                    $(grn $_GL_HOSTKEY_ED25519)
+	                    $(grn $_GH_HOSTKEY_ECDSA)
+	                    $(grn $_GH_HOSTKEY_ED25519)
 	:
 }
 
@@ -234,18 +235,17 @@ _other_problem_msg() {
 _tutr_assert_ssh_connection_is_okay() {
 	[[ -z $DEBUG ]] && clear || set -x
 
-	echo Testing connection to gitlab.cs.usu.edu...
+	echo Testing connection to github.com...
 	ssh-keygen -F $_GH >/dev/null 2>&1 || _tutr_info _ssh_add_hostkey_msg
 
 	local msg stat
-	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GL 2>&1)
+	msg=$(ssh -o PasswordAuthentication=no -o ConnectTimeout=7 -T git@$_GH 2>&1)
 	stat=$?
 
 	case $stat in
 		0)
-			if [[ $msg == *"Welcome to GitLab, @"* ]]; then
-				_GL_USERNAME=${msg##*@}
-				_GL_USERNAME=${_GL_USERNAME:0:-1}
+			if [[ $msg == *"Hi "* ]]; then
+					_GH_USERNAME=$(echo $msg | grep -oP 'Hi \K[^!]+')
 			fi
 			;;
 		255)
