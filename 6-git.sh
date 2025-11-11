@@ -14,7 +14,7 @@ fi
 _A=0
 
 # Name of the starter code repo
-_REPO_NAME=cs1440-falor-erik-proj$_A
+_REPO_NAME=GASRATS-Demo
 
 # This function is named `_Git` to avoid clashing with Zsh's `_git`
 _Git() { (( $# == 0 )) && echo $(blu Git) || echo $(blu $*); }
@@ -38,7 +38,7 @@ if [[ -n $_TUTR ]]; then
 	_origin() { (( $# == 0 )) && echo $(red origin) || echo $(red $*); }
 
 	# origin of the starter code repo
-	_SSH_REPO_URL=git@gitlab.cs.usu.edu:duckiecorp/$_REPO_NAME
+	_SSH_REPO_URL=git@github.com:SmallSatGasTeam/$_REPO_NAME
 
 	# Open the current Git repo's origin web page
 	browse_repo() {
@@ -59,7 +59,7 @@ _repo_warning() {
 	parent directory.  Because this lesson involves cloning this repository,
 	it should not already exist.
 
-	If you have not yet submitted Project #$_A you may not wish to delete
+	If you have not yet finished the shell-tutor, you may not wish to delete
 	your work.  In that case, it's probably best to not re-run this lesson.
 
 	If you want to start over, use $(cmd rm -rf) to delete $(path $_REPO_NAME)
@@ -135,7 +135,7 @@ prologue() {
 	* Check the status of your repository
 	* Change a file and commit it to the repository
 	* View the Git log
-	* Submit your homework to GitLab
+	* Submit your homework to GitHub
 
 	This lesson takes around $_DURATION minutes.
 
@@ -584,7 +584,7 @@ git_status1_epilogue() {
 
 
 
-# 6.  Clone the git repository containing the starter code from GitLab onto
+# 6.  Clone the git repository containing the starter code from GitHub onto
 # 	your computer using the `git clone` command.
 
 git_clone_rw() {
@@ -629,7 +629,7 @@ git_clone_prologue() {
 }
 
 git_clone_test() {
-	_tutr_generic_test -c git -a clone -a "^https://gitlab.cs.usu.edu/duckiecorp/cs1440-falor-erik-proj$_A$|^git@gitlab.cs.usu.edu:duckiecorp/cs1440-falor-erik-proj$_A$" -d "$_PARENT"
+	_tutr_generic_test -c git -a clone -a "^https://github.com/SmallSatGasTeam/GASRATS-Demo$|^git@github.com:SmallSatGasTeam/GASRATS-Demo$" -d "$_PARENT"
 }
 
 git_clone_hint() {
@@ -657,7 +657,7 @@ git_clone_hint() {
 			cat <<-:
 
 			To clone this repo run
-			  $(cmd git clone git@gitlab.cs.usu.edu:duckiecorp/$_REPO_NAME)
+			  $(cmd git clone git@github.com/SmallSatGasTeam/$_REPO_NAME)
 			:
 		;;
 	esac
@@ -1451,7 +1451,7 @@ git_remote_v_epilogue() {
 	from (fetching) and $(bld upload) updates to (push).
 
 	Both of these URLs are nicknamed $(_origin), and right now they point back
-	to $(bld my) account on GitLab.
+	to $(bld my) account on GitHub.
 
 	There is nothing particularly special about the name $(_origin); it's just
 	a $(_Git) tradition.
@@ -1475,7 +1475,7 @@ git_remote_rename_prologue() {
 	cat <<-:
 	Now, all of this talk about creating $(bld confusing) messes and blending up
 	frogs is completely moot.  You $(bld cannot) possibly upload your work into $(_remote my)
-	$(_remote repo) on GitLab because you don't know $(bld my) password.
+	$(_remote repo) on GitHub because you don't know $(bld my) password.
 
 	Look, I like you and everything, but I barely know you.  I am $(bld not)
 	giving you my password.  You'll just have to use your own account
@@ -1491,7 +1491,7 @@ git_remote_rename_prologue() {
 
 	The nicknames can be anything, but they really should be shorter than a
 	URL.  It is a custom in $(_Git) to use $(_origin) for the URL that you use
-	most often.  Your repo's $(_origin) should point to $(cyn your own) GitLab account.
+	most often.  Your repo's $(_origin) should point to $(cyn your own) GitHub account.
 
 	Before you make $(_origin) point to your account, first "save" the original
 	URL with the nickname $(_remote old-origin).
@@ -1609,7 +1609,7 @@ git_remote_add_ff() {
 git_remote_add_prologue() {
 	cat <<-:
 	Now you will use $(cmd git remote add) to associate the name $(_origin) with a new
-	GitLab URL that includes your username.
+	GitHub URL that includes your username.
 
 	The new URL needs a bit of explanation.
 
@@ -1624,9 +1624,9 @@ git_remote_add_prologue() {
 
 	Your new URL will look like that, except for these differences:
 
-	  * Replace $(cyn duckiecorp) with your $(bld GitLab username) (case does not matter)
-	    * Your $(bld GitLab username) is most likely your $(bld A Number)
-	  * Replace $(cyn falor-erik) with your $(bld real name) (again, case does not matter)
+	  * Replace $(cyn SmallSatGasTeam) with your $(bld GitHub username) (case does not matter)
+	    * Your $(bld GitHub username) is most likely your $(bld A Number)
+	  * Replace $(cyn GASRATS) with your $(bld real name) (again, case does not matter)
 	    * To make things easy on your grader, use your Canvas $(bld preferred name)
 
 	:
@@ -1640,7 +1640,7 @@ git_remote_add_prologue() {
 	and use $(cyn firstname) $(bld dot) $(cyn lastname) unless that $(bld really) is your username!
 
 	You can see your username by clicking on your avatar in the upper-right
-	corner of GitLab while logged in.
+	corner of GitHub while logged in.
 
 	:
 
@@ -1652,11 +1652,10 @@ git_remote_add_prologue() {
 
 	  * Punctuation, such as slashes $(ylw /) and colons $(ylw :)
 	  * $(ylw git@github.com)
-	  * $(ylw cs1440)
-	  * $(ylw proj$_A)
+	  * $(ylw demo)
 
 	When students get those wrong, we cannot locate their submission on the
-	GitLab server (there are $(bld thousands) of them).
+	GitHub server (there are $(bld thousands) of them).
 
 	If this ever happens to you, contact a TA for help ASAP.
 
@@ -1699,28 +1698,28 @@ git_remote_add_test() {
 	_LASTNAME_FIRSTNAME=89
 	_AT_SIGN=88
 
+	https://github.com/SmallSatGasTeam/GASRATS-Demo
 	local URL=$(git remote get-url origin 2>/dev/null)
 	if   [[ -z $URL ]]; then return $_NO_ORIGIN
 	elif [[ $URL =  https:* ]]; then return $_HTTPS_URL
 	elif [[ $URL != git@* ]]; then return $_NOT_SSH_URL
-	elif [[ $URL =  git@gitlab.cs.usu.edu/* ]]; then return $_BAD_SLASH
-	elif [[ $URL != *gitlab.cs.usu.edu* ]]; then return $_BAD_HOST
-	elif [[ $URL =  *:duckiecorp/* ]]; then return $_ERIKS_USERNAME
+	elif [[ $URL =  git@github.com/* ]]; then return $_BAD_SLASH
+	elif [[ $URL != *github.com* ]]; then return $_BAD_HOST
+	elif [[ $URL =  *:SmallSatGasTeam/* ]]; then return $_GAS_USERNAME
 	elif [[ $URL =  *LASTNAME* || $URL =  *FIRSTNAME* ]]; then return $_LASTNAME_FIRSTNAME
-	elif [[ $URL != */cs1440-* ]]; then return $_BAD_COURSE
-	elif [[ $URL != *-proj$_A && $URL != *-proj$_A.git ]]; then return $_BAD_ASSN
-	elif [[ $URL =  */$_REPO_NAME* ]]; then return $_ERIKS_REPO_NAME
-	elif [[ $URL = git@gitlab.cs.usu.edu:@* ]]; then return $_AT_SIGN
+	elif [[ $URL != *-demo && $URL != *-demo.git ]]; then return $_BAD_ASSN
+	elif [[ $URL =  */$_REPO_NAME* ]]; then return $_GAS_REPO_NAME
+	elif [[ $URL = git@github.com:@* ]]; then return $_AT_SIGN
 	elif [[ -n $_GL_USERNAME ]]; then
-		if [[ $URL = git@gitlab.cs.usu.edu:$_GL_USERNAME/cs1440-*-proj$_A ||
-		      $URL = git@gitlab.cs.usu.edu:$_GL_USERNAME/cs1440-*-proj$_A.git ]]; then
+		if [[ $URL = git@github.com:$_GL_USERNAME/*-demo ||
+		      $URL = git@github.com:$_GL_USERNAME/*-demo.git ]]; then
 			return 0
-		elif [[ $URL != git@gitlab.cs.usu.edu:$_GL_USERNAME* ]]; then
+		elif [[ $URL != git@github.com:$_GL_USERNAME* ]]; then
 			return $_BAD_USERNAME
 		fi
 	elif [[ -z $_GL_USERNAME ]]; then
-		if [[ $URL = git@gitlab.cs.usu.edu:*/cs1440-*-proj$_A ||
-		      $URL = git@gitlab.cs.usu.edu:*/cs1440-*-proj$_A.git ]]; then
+		if [[ $URL = git@github.com:*/*-demo ||
+		      $URL = git@github.com:*/*-demo.git ]]; then
 		  return 0
 		fi
 	fi
@@ -1740,20 +1739,20 @@ git_remote_add_hint() {
 			:
 			;;
 
-		$_ERIKS_USERNAME)
+		$_GAS_USERNAME)
 			cat <<-:
-			$(_origin) points to the address of MY repo, not YOURS!
+			$(_origin) points to the address of THE GAS repo, not YOURS!
 
 			Use $(cmd git remote remove origin) to erase this and try again.
 			:
 			;;
 
-		$_ERIKS_REPO_NAME)
+		$_GAS_REPO_NAME)
 			cat <<-:
-			The name you gave your repo is wrong - it still contains MY name.
+			The name you gave your repo is wrong - it still contains the ORIGINAL name.
 
 			Your repository's name should include YOUR name and look like this:
-			  $(bld cs1440-LASTNAME-FIRSTNAME-proj$_A)
+			  $(bld LASTNAME-FIRSTNAME-demo)
 
 			Also, replace $(cyn LASTNAME-FIRSTNAME) with your $(bld real names)
 
@@ -1766,7 +1765,7 @@ git_remote_add_hint() {
 			Somehow I doubt those are your first and last names.
 
 			Your repository's name should include your $(bld real) name and look like this:
-			  $(bld cs1440-LASTNAME-FIRSTNAME-proj$_A)
+			  $(bld LASTNAME-FIRSTNAME-demo)
 
 			Of course, replace $(cyn LASTNAME-FIRSTNAME) with your $(bld real names).
 
@@ -1783,13 +1782,13 @@ git_remote_add_hint() {
 			:
 			if [[ -n $_GL_USERNAME ]]; then
 				cat <<-:
-				$(path git@gitlab.cs.usu.edu:$_GL_USERNAME/cs1440-LASTNAME-FIRSTNAME-proj$_A))
+				$(path git@github.com:$_GL_USERNAME/LASTNAME-FIRSTNAME-demo))
 				:
 			else
 				cat <<-:
-				$(path git@gitlab.cs.usu.edu:USERNAME/cs1440-LASTNAME-FIRSTNAME-proj$_A))
+				$(path git@github.com:USERNAME/LASTNAME-FIRSTNAME-demo))
 
-				Of course, replace $(cyn USERNAME) with your $(bld GitLab username).
+				Of course, replace $(cyn USERNAME) with your $(bld GitHub username).
 				:
 			fi
 
@@ -1803,10 +1802,10 @@ git_remote_add_hint() {
 			cat <<-:
 			You entered the wrong username into the URL.
 
-			Your GitLab username is $(bld $_GL_USERNAME), so the URL should
+			Your GitHub username is $(bld $_GH_USERNAME), so the URL should
 			look like this:
 
-			$(path git@gitlab.cs.usu.edu:$_GL_USERNAME/cs1440-LASTNAME-FIRSTNAME-proj$_A))
+			$(path git@github.com:$_GH_USERNAME/LASTNAME-FIRSTNAME-demo))
 
 			Also, replace $(cyn LASTNAME-FIRSTNAME) with your $(bld real names)
 
@@ -1816,8 +1815,8 @@ git_remote_add_hint() {
 
 		$_BAD_ASSN)
 			cat <<-:
-			This repository's name must end in $(bld "-proj$_A"), signifying that it
-			is for Project #$_A.
+			This repository's name must end in $(bld "-demo"), signifying that it
+			is for the GASRATS demo.
 
 			Use $(cmd git remote remove origin) to erase this and try again.
 			:
@@ -1826,7 +1825,7 @@ git_remote_add_hint() {
 		$_BAD_SLASH)
 			cat <<-:
 			This SSH address will not work because there is a slash $(bld "'/'") between the
-			hostname $(ylw gitlab.cs.usu.edu) and your username.  (Use $(cmd git remote -v) to
+			hostname $(ylw github.com) and your username.  (Use $(cmd git remote -v) to
 			see for yourself).
 
 			Instead of a slash that character should be a colon $(bld "':'")
@@ -1837,20 +1836,9 @@ git_remote_add_hint() {
 
 		$_BAD_HOST)
 			cat <<-:
-			The hostname of the URL should be $(ylw gitlab.cs.usu.edu).
+			The hostname of the URL should be $(ylw github.com).
 
 			If you push your code to the wrong Git server it will not be submitted.
-
-			Use $(cmd git remote remove origin) to erase this and try again.
-			:
-			;;
-
-		$_BAD_COURSE)
-			cat <<-:
-			This repository's name must contain the course number $(bld cs1440), followed
-			by a hyphen.  This associates this repo with this course.
-
-			If its name includes the wrong course number it won't be graded!
 
 			Use $(cmd git remote remove origin) to erase this and try again.
 			:
@@ -1909,6 +1897,91 @@ git_remote_add_epilogue() {
 	_tutr_pressenter
 }
 
+install_gh_prologue() {
+	cat <<-:
+	In order to save your modifications to GitHub, you
+	must first use GitHub's tools to create a repo
+	on their server.
+
+	First, install the GitHub command line tool:
+		$(cmd sudo apt install gh)
+
+	:
+	_tutr_pressenter
+}
+
+install_gh_test() {
+	if   [[ ${_CMD[@]} = *'help'* ]]; then return $NOOP
+	elif (( _RES == 0 )) && [[ ${_CMD[@]} = 'sudo apt install gh' ]]; then return 0
+	fi
+}
+
+install_gh_hint() {
+	cat <<-:
+	Run the command:
+		$(cmd sudo apt install gh)
+	:
+}
+
+install_gh_epilogue() {
+	cat <<-:
+	Perfect! Now you have the GitHub CLI tools installed.
+	:
+	_tutr_pressenter
+}
+
+authenticate_gh_prologue() {
+	cat <<-:
+	When using GitHubs CLI tools, you have to be authenticated
+	so GitHub knows who is doing what on their servers. You can
+	run this command to authenticate your GitHub tools:
+		$(cmd gh auth login)
+	
+	The program will then ask if you want to login in to github.com
+	or the github enterprise server. You want to login in to
+	github.com. After you select github.com you should be brought to
+
+	:
+}
+
+gh_repo_create_prologue() {
+	_CURR_DIR=$(pwd 2>/dev/null)
+	
+	if [[ $_CURR_DIR != *"GASRATS-Demo"* ]] then
+		cat <<-:
+		!!! WARNING !!!
+		YOU ARE IN THE WRONG DIRECTORY!
+		Make sure you are in the GASRATS-Demo directory
+		before you try and run the next command.
+		:
+		_tutr_pressenter
+	fi
+
+	cat <<-:
+	Now we can use the GitHub CLI tools to create your repo!
+
+	Try running this command:
+		$(cmd gh repo create LASTNAME-FIRSTNAME-demo --private -s .)
+
+	Replace LASTNAME-FIRSTNAME with your own name
+	:
+	_tutr_pressenter
+}
+
+gh_repo_create_test() {
+	if   [[ ${_CMD[@]} = *'help'* ]]; then return $NOOP
+	elif (( _RES == 0 )) && [[ ${_CMD[@]} = 'gh repo create '*'-demo --private -s .' ]]; then return 0
+	fi
+}
+
+gh_repo_create_epilogue() {
+	cat <<-:
+	Congrats! Now you're ready to push the changes you made
+	to your new repo!
+	:
+	_tutr_pressenter
+}
+
 
 # 20. git push & refresh your browser window
 # There is no good way to rewind this action
@@ -1923,13 +1996,13 @@ git_push_all_ff() {
 git_push_all_pre() {
 	_NEW_URL=$(git remote get-url origin 2>/dev/null)
 	git ls-remote origin &>/dev/null
-	_REMOTE_ALREADY_EXISTS=$?
+	# _REMOTE_ALREADY_EXISTS=$?
 }
 
 git_push_all_prologue() {
 	if (( _REMOTE_ALREADY_EXISTS == 0 )); then
 		cat <<-:
-		Why is there already a repo on GitLab at
+		Why is there already a repo on GitHub at
 		  $(path $_NEW_URL)?
 
 		Have you already done this lesson once before?
@@ -1943,15 +2016,17 @@ git_push_all_prologue() {
 	fi
 
 	cat <<-:
-	You are finally ready to push your work to GitLab.  This is how you will
-	submit your work throughout the semester.
+	You are finally ready to push your work to GitHub.  This is how you will
+	share your work throughout the semester.
+
+	In order to push this to GitHub you will have to use their tools to 
 
 	$(cmd git push) is the command that does it.  Its syntax is:
 	  $(cmd "git push [-u] REPOSITORY [--all]")
 
 	In the place of the $(cmd REPOSITORY) argument you will write $(_origin).
 
-	The first time you push your code up to GitLab you will use all of the
+	The first time you push your code up to GitHub you will use all of the
 	options listed above, like this:
 	  $(cmd "git push -u origin --all")
 
@@ -1975,7 +2050,7 @@ git_push_all_hint() {
 	case $1 in
 		$_NO_U)
 			cat <<-:
-			Well, your code made it up to GitLab.  But without the $(cmd -u) option
+			Well, your code made it up to GitHub.  But without the $(cmd -u) option
 			you've just created more work for yourself.  From now on, you'll need
 			to repeat that entire command, $(cmd ${_CMD[@]}), $(bld every) time you
 			want to push your work.
@@ -2005,7 +2080,7 @@ git_push_all_hint() {
 			connected to $(blu USU Guest).
 
 			If you were prompted for a password, this means that your SSH key is not
-			on GitLab.  Double-check that your $(path ~/.ssh/id_rsa.pub) is in your profile.
+			on GitHub.  Double-check that your $(path ~/.ssh/id_rsa.pub) is in your profile.
 			You may wish to re-run the previous lesson $(bld 5-ssh-key.sh).  Exit this lesson
 			then run this command:
 			  $(cmd MENU=yes ./tutorial.sh)
@@ -2033,7 +2108,7 @@ git_push_all_epilogue() {
 	_tutr_pressenter
 	cat <<-:
 
-	And that's how we roll at $(ylw DuckieCorp)!
+	And that's how we roll on the $(ylw GAS team)!
 
 	$(_subcmd 10 push)
 
@@ -2048,7 +2123,7 @@ git_push_all_epilogue() {
 epilogue() {
 	cat <<-EPILOGUE
 	Before I let you go, switch over to your browser and see what your repo
-	looks like on GitLab.
+	looks like on GitHub.
 
 	Pretty slick, eh?
 
@@ -2087,7 +2162,7 @@ epilogue() {
 	* Check the status of your repository
 	* Change a file and commit it to the repository
 	* View the Git log
-	* Submit your homework to GitLab
+	* Submit your homework to GitHub
 
 	$(bld "Don't do anything with the repo that you just cloned and pushed;")
 	$(bld you need it for the last lesson.)
@@ -2126,6 +2201,8 @@ source main.sh && _tutr_begin \
 	git_remote_v \
 	git_remote_rename \
 	git_remote_add \
+	install_gh \
+	gh_repo_create \
 	git_push_all \
 
 

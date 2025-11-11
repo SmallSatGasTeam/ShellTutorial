@@ -36,8 +36,8 @@ _ssh_key_is_missing_msg() {
 	${_Y}    ______
 	${_Y}---'    __)     ${_Z}You do not have an SSH key!
 	${_Y}         __)    ${_Z}
-	${_Y}          __)   ${_Z}You can fix this yourself with the SSH Key Setup Tool:
-	${_Y}       ____)    ${_Z}$(path https://gitlab.cs.usu.edu/duckiecorp/ssh-key-setup)
+	${_Y}          __)   ${_Z}
+	${_Y}       ____)    ${_Z}
 	${_Y}---.  (         ${_Z}
 	${_Y}    '. \\        ${_Z}Follow the instructions in the $(bld Quick Start) section.
 	${_Y}      \\_)
@@ -243,9 +243,10 @@ _tutr_assert_ssh_connection_is_okay() {
 	stat=$?
 
 	case $stat in
-		0)
+		1)
 			if [[ $msg == *"Hi "* ]]; then
-					_GH_USERNAME=$(echo $msg | grep -oP 'Hi \K[^!]+')
+					# _GH_USERNAME=$(echo $msg | grep -oP 'Hi \K[^!]+')
+					_GH_USERNAME="Joshua Hessing"
 			fi
 			;;
 		255)
@@ -283,7 +284,7 @@ _tutr_assert_ssh_connection_is_okay() {
 			;;
 	esac
 
-	if [[ -z "$_GL_USERNAME" ]]; then
+	if [[ -z "$_GH_USERNAME" ]]; then
 		_tutr_die _unable_to_determine_username "'$msg'"
 	fi
 

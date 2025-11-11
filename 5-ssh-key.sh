@@ -683,9 +683,9 @@ view_public_key_epilogue() {
 
 	cat <<-:
 
-	I have opened a browser window to the GitLab page where you will save
+	I have opened a browser window to the GitHub page where you will save
 	your $(public) key.  If you haven't already done so, you will sign up
-	and/or log in to GitLab now.
+	and/or log in to GitHub now.
 
 	(If a browser window didn't pop up for you, go to
 	  $(path $_HTTPS_GITLAB_KEYS) )
@@ -710,43 +710,43 @@ view_public_key_epilogue() {
 
 
 
-put_key_on_gitlab_pre() {
+put_key_on_github_pre() {
 	_FAILS=0
 }
 
-put_key_on_gitlab_prologue() {
+put_key_on_github_prologue() {
 	cat <<-:
-	Now that your $(public) key is on GitLab, you will run a command to make
+	Now that your $(public) key is on GitHub, you will run a command to make
 	sure it works.  You'll either get the $(cyn Good News) or the $(red Bad News).
 
 	$(cyn Good news)
-	You'll see this message, but with your GitLab username instead of
+	You'll see this message, but with your GitHub username instead of
 	$(bld username):
-	  $(bld Welcome to GitLab, @username!)
+	  $(bld Welcome to GitHub, @username!)
 
 	$(red Bad news)
 	You will get this password prompt:
-	  $(bld "git@$_GL's password:")
+	  $(bld "git@$_GH's password:")
 
 	Just hit $(kbd Ctrl-C) to cancel it, and try again.
 	If this persists, contact $_EMAIL for help.
 
 	So what are you waiting for?  Let's find out if your SSH key is good.
-	  $(cmd ssh -T git@$_GL)
+	  $(cmd ssh -T git@$_GH)
 	:
 }
 
-put_key_on_gitlab_test() {
-	local pattern="^ssh -T git@$_GL$|^ssh git@$_GL -T$"
+put_key_on_github_test() {
+	local pattern="^ssh -T git@$_GH$|^ssh git@$_GH -T$"
 	if   [[ ${_CMD[@]} =~ $pattern ]] && (( $_RES == 0 )); then return 0
 	elif [[ ${_CMD[@]} =~ $pattern ]]; then
 		(( ++_FAILS ))
 		return $STATUS_FAIL
-	else _tutr_generic_test -c ssh -a -T -a git@$_GL
+	else _tutr_generic_test -c ssh -a -T -a git@$_GH
 	fi
 }
 
-put_key_on_gitlab_hint() {
+put_key_on_github_hint() {
 	case $1 in
 		$NOOP)
 			;;
@@ -759,7 +759,7 @@ put_key_on_gitlab_hint() {
 				:
 			elif (( _FAILS == 2 )); then
 				cat <<-:
-				Are you sure that your key was saved on GitLab?  Go back to your browser
+				Are you sure that your key was saved on GitHub?  Go back to your browser
 				tab and check that
 				  0. the $(bld Key) field contains your $(public) key
 				  1. and the $(bld Add Key) button was clicked
@@ -773,7 +773,7 @@ put_key_on_gitlab_hint() {
 				Oof, that didn't quite work, did it?
 
 				Try it again.  Maybe you'll have better luck this time.
-				  $(cmd ssh -T git@$_GL)
+				  $(cmd ssh -T git@$_GH)
 				:
 			fi
 			;;
@@ -783,8 +783,8 @@ put_key_on_gitlab_hint() {
 
 			Run $(cmd cat id_rsa.pub) if you need to see your public key again.
 
-			After you've saved your public key on GitLab, run
-			  $(cmd ssh -T git@$_GL)
+			After you've saved your public key on GitHub, run
+			  $(cmd ssh -T git@$_GH)
 			as a test.
 			:
 			;;
@@ -792,10 +792,10 @@ put_key_on_gitlab_hint() {
 }
 
 
-put_key_on_gitlab_epilogue() {
+put_key_on_github_epilogue() {
 	cat <<-:
 	Isn't that something?  You told $(cmd ssh) to log in as
-	$(username git)@$_GL, but it still recognized you by your
+	$(username git)@$_GH, but it still recognized you by your
 	actual username.  $(bld And) it didn't ask for a $(password)!
 
 	SSH keys: $(username identification) and $(password authentication) in one!
@@ -806,11 +806,11 @@ put_key_on_gitlab_epilogue() {
 
 	cat <<-:
 
-	Now, all of this business with $(cmd ssh-keygen) and putting keys on GitLab
+	Now, all of this business with $(cmd ssh-keygen) and putting keys on GitHub
 	needs to be repeated with $(bld every) different computer that you want to
 	use $(bld Git) on.  It is better to think of your $(private) key as
 	identifying this $(bld device) instead of yourself.  It is normal to have
-	many different $(public) keys on your GitLab account; as you have seen,
+	many different $(public) keys on your GitHub account; as you have seen,
 	they are really easy to make.
 
 	Come back to this lesson any time you need to brush up on $(cmd ssh-keygen).
@@ -823,14 +823,14 @@ put_key_on_gitlab_epilogue() {
 
 epilogue() {
 	cat <<-EPILOGUE
-	With an SSH key on GitLab, you are ready to learn the best thing to
+	With an SSH key on GitHub, you are ready to learn the best thing to
 	happen to programmers since multi-user time-sharing operating systems
 	came along: $(bld Git).
 
 	In this lesson you learned how to
 
 	* Create an SSH key with $(cmd ssh-keygen)
-	* Learn what an SSH key is and how to put it on GitLab
+	* Learn what an SSH key is and how to put it on GitHub
 	* Test that your SSH key is correctly set up with $(cmd ssh)
 
 		                                 $(blk ASCII art credit: Philip Kaulfuss)
@@ -855,7 +855,7 @@ source main.sh && _tutr_begin \
 	view_private_key \
 	pop_quiz0 \
 	view_public_key \
-	put_key_on_gitlab
+	put_key_on_github
 
 
 # vim: set filetype=sh noexpandtab tabstop=4 shiftwidth=4 textwidth=76 colorcolumn=76:
