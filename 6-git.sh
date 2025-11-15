@@ -1472,10 +1472,6 @@ git_remote_rename_ff() {
 
 git_remote_rename_prologue() {
 	cat <<-:
-	Now, all of this talk about creating $(bld confusing) messes and blending up
-	frogs is completely moot.  You $(bld cannot) possibly upload your work into $(_remote my)
-	$(_remote repo) on GitHub because you don't know $(bld my) password.
-
 	Look, I like you and everything, but I barely know you.  I am $(bld not)
 	giving you my password.  You'll just have to use your own account
 	and make a new repository there.
