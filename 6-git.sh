@@ -605,7 +605,7 @@ git_clone_pre() {
 
 git_clone_prologue() {
 	cat <<-:
-	Now you will $(bld clone) the starter code for Project #0 in CS 1440.
+	Now you will $(bld clone) the starter code for the GASRATS-Demo.
 	$(bld Cloning) a repo makes a new directory on your computer into which the
 	repo's information is downloaded.
 
